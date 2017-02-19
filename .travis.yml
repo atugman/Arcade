@@ -1,2 +1,9 @@
 language: node_js
 node_js: node
+deploy:
+  provider: heroku
+  api_key:
+    secure: FpH5Wp6TLSJugsv+xBmZpaPE/FZEx4rQRpIUUkm/+y6LundInA4wb/v73RCM57K6MQ7O/elelhnufYUEaXl9DUrsynBcTODdHmD6833QndZBTUFdXgV3v9i6Ozf7P6q1qaT9CaPAht7vmSXuyPO8wCEitPr2dOzROkCsK+GggIknt5nWwawfw9LFyiN3B9SqaYjPXHv9zejisxV89nKWxvKZGolQJHSidM5cftsVorWg/uHoDjfqSRLqaqYgKUtEIO9+sU6Ui7KHGd611Id1ASu5ekTT/mWolMJVryGylIHgV28F19TXMl5uBAl8/GeXdMEL93MyeGVJBNiZxBLTpUZ+KK1my73/MPIYr3zeWaoCG+h/ljaIhqHz/J6f+r95clJ39uzEn3WTRip5HorgKbqCaUTkLMc2EO4KG/9VBz8BWly/K536x3gJtgIoC+F3LG7zTr5zQSatMNiVViZHsRAA6WtHM6A/K/ZLDdgZu0gZWSIrMicI7/3ARCunp2hEKqldRy7R8GLtfdRgy3kuiNw6/GudIgV7+kJZMUyEqo30qy20wjEFUo2Ehk38beNmedCVqrLQLZNArEiTlYiqdpLEc4/f72rq9cm9zZk5g/GvJ/4D8YQtV1tHFfhs9+XY+rnToLdjSbJ/9ycDLhDMaXyVfreEk41htL4H4NHW/Do=
+  app: glacial-hollows-48767
+  on:
+    repo: atugman/Arcade
