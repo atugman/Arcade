@@ -35,6 +35,19 @@ function getHighScores(callbackFn) {
     setTimeout(function(){ callbackFn(MOCK_HIGH_SCORES)}, 100);
 }
 
+/*
+function sortHighScores() {
+    highScores.sort(function(a, b) { 
+    a.score - b.score;
+})
+
+for(var i in MOCK_HIGH_SCORES)
+    document.writeln(MOCK_HIGH_SCORES[i].userName)
+}
+
+console.log(sortHighScores());
+*/
+
 // this function stays the same when we connect
 // to real API later
 function displayHighScores(data) {
