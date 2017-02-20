@@ -16,7 +16,7 @@ var MOCK_HIGH_SCORES = {
         },
         {
             "id": "333333",
-            "score": 733
+            "score": 733,
             "userID": "cccc",
             "userName": "Jim Doe",
             "publishedAt": 1470011976609
