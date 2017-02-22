@@ -48,7 +48,7 @@ describe('arcade', function() {
     it('should return high scores in descending order', function() {
       let res;
       return chai.request(app)
-        .get('/posts')
+        .get('/highScores')
         .then(_res => {
           res = _res;
           res.should.have.status(200);

@@ -1,14 +1,14 @@
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
-const User = require('./models/user')
+//const mongoose = require('mongoose');
+//const User = require('./models/user')
 //mongoose.connect('mongodb://localhost:27017/arcade')
 
 app.use(express.static('public'));
 app.listen(process.env.PORT || 8080);
 exports.app = app;
 
-app.get('../public/index.html', (req, res) => {
+app.get('../public/app.js', (req, res) => {
   res.json(arcade.get());
 });
 /*
