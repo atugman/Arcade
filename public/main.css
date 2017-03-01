@@ -1,1 +1,7 @@
-canvas { background: #eee; }
+canvas {
+	background: #eee;
+}
+
+.row {
+	width: 100%
+}

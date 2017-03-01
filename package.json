@@ -14,8 +14,14 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-nodeunit": "~0.4.1",
+    "grunt-contrib-uglify": "~0.5.0",
     "mocha": "^3.2.0",
-    "mongodb": "*",
+    "mongo": "^0.1.0",
+    "mongodb": "^2.2.24",
+    "mongoose": "^4.8.4",
     "monk": "*"
   }
 }

@@ -1,59 +1,13 @@
-var MOCK_HIGH_SCORES = {
-    "highScores": [
-        {
-            "id": "1111111",
-            "score": 900,
-            "userID": "aaaaaa",
-            "userName": "John Doe",
-            "publishedAt": 1470016976609
-        },
-        {
-            "id": "2222222",
-            "score": 800,
-            "userID": "bbbbbbb",
-            "userName": "Jane Doe",
-            "publishedAt": 1470012976609
-        },
-        {
-            "id": "333333",
-            "score": 733,
-            "userID": "cccc",
-            "userName": "Jim Doe",
-            "publishedAt": 1470011976609
-        },
-        {
-            "id": "4444444",
-            "score": 933,
-            "userID": "ddddd",
-            "userName": "Jackie Doe",
-            "publishedAt": 1470009976609
-        }
-    ]
-}
-
 function getHighScores(callbackFn) {
-    setTimeout(function(){ callbackFn(MOCK_HIGH_SCORES)}, 100);
+    setTimeout(function(){ callbackFn(arcade)}, 100);
 }
-
-/*
-function sortHighScores() {
-    highScores.sort(function(a, b) { 
-    a.score - b.score;
-})
-
-for(var i in MOCK_HIGH_SCORES)
-    document.writeln(MOCK_HIGH_SCORES[i].userName)
-}
-
-console.log(sortHighScores());
-*/
 
 // this function stays the same when we connect
 // to real API later
 function displayHighScores(data) {
-    for (index in data.highScores) {
-       $('body').append(
-        '<p>' + data.highScores[index].score + '</p>');
+    for (index in data.arcade) {
+       $('high-scores-column').append(
+        '<li>' + data.arcade[index].score + '</li>');
     }
 }
 
@@ -66,3 +20,24 @@ function getAndDisplayHighScores() {
 $(function() {
     getAndDisplayHighScores();
 })
+
+$.material.init();
+
+
+
+//  api
+$('other-games-column').click(function(){
+
+  $.getJSON(`GEThttps://igdbcom-internet-game-database-v1.p.mashape.com/games/`, function( response ) {
+    console.log(displayData(response.data));
+}
+);
+
+function displayData(data) {
+    for(var i=0; i<data.length; i++) {
+      var html = '<li>' + data[i].name + '</li>';
+      $('.other-games-column').append(html);
+      console.log(data);
+    }
+  }
+});

@@ -13,8 +13,8 @@ var dy = -6; //blue
 var dbx = 10; //green
 var dby = -10; //green
 
-var dbbx = 5; //yellow
-var dbby = -5; //yellow
+var dbbx = 5; //red
+var dbby = -5; //red
 
 //var aquaX = 10; //aqua
 //var aquaY = -10; //aqua
@@ -22,8 +22,8 @@ var dbby = -5; //yellow
 var xb = canvas.width/3; 
 var yb = canvas.height-30;
 
-var xz = canvas.width/1.5; //yellow
-var yz = canvas.height-30; //yellow
+var xz = canvas.width/1.5; //red
+var yz = canvas.height-30; //red
 
 //var xa = canvas.width/1.3; //aqua
 //var ya = canvas.height-30; //aqua
@@ -121,8 +121,6 @@ function collisionDetection() {
   }
 }
 
-/*Sends the score to the server and displays the message of Game over*/
-
 function gameover(){
   var msg = {
     "messageType": "SCORE",
@@ -133,62 +131,37 @@ function gameover(){
   document.location.reload();
 }
 
-/*****
-CANVAS
-*****/
-
 var message =  {
   messageType: "SETTING",
   options: {
-  "width": 500, //Integer
-  "height": 450 //Integer
+  "width": 500,
+  "height": 450
 }
 };
 
-window.parent.postMessage(message, "*");
-
-$("#save").click( function () {
-  var msg = {
-    "messageType": "SAVE",
-    "gameState": {
-      "score": score
-    }
-  };
-  window.parent.postMessage(msg, "*");
-});
-
-$("#load").click( function () {
-  var msg = {
-    "messageType": "LOAD_REQUEST",
-  };
-  window.parent.postMessage(msg, "*");
-});
-
-window.addEventListener("message", function(evt) {
-if(evt.data.messageType === "LOAD") {
-  score = evt.data.gameState.score;
-} else if (evt.data.messageType === "ERROR") {
-  alert(evt.data.info);
-}
-});
+/*****
+CANVAS
+*****/
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBall(ballRadius , 'blue', x,y);
   drawBall(ballRadius, 'green',xb,yb);
-  drawBall(ballRadius, 'yellow', xz, yz);
+  drawBall(ballRadius, 'red', xz, yz);
   //drawBall(ballRadius, 'aqua', xa, yz);
   drawPaddle();
   drawBrick();
   drawScore();
   collisionDetection();
+
                 /******************
                 BOUNCING GREEN BALL
                 ******************/
+
   if(y + dy < ballRadius) {
       dy= -dy;
    } else if (y + dy > (canvas.height-ballRadius)) {
-    //checking if the ball hits the paddle
+      //checking if the ball hits the paddle
       if(x > paddleX && x < paddleX + paddleWidth) {
         gameover();
       } else {
@@ -218,7 +191,7 @@ function draw() {
   if(yz +dbby < ballRadius) {
     dbby= -dbby;
   } else if (yz + dbby > (canvas.height-ballRadius)) {
-//checking if the yellow ball hits the paddle
+      //checking if the yellow ball hits the paddle
       if(xz > paddleX && xz < paddleX + paddleWidth ) {
         gameover();
       } else {
@@ -226,9 +199,9 @@ function draw() {
       }
     }
 
-                /*****************
+                /*******************************
                 BOUNCING AQUA BALL (COMING SOON)
-                ******************
+                ********************************
 if(ya +aquaY < ballRadius)
 {
   aquaY= -aquaY;

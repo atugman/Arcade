@@ -1,14 +1,11 @@
-/*adding this after testing
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
+const ArcadeSchema = new Schema({
 	userName: String,
-	password: String,
+	//password: String,
 	score: Number,
-	password: String,
-	location: String
+	publishedAt: Number,
 });
 
-module.exports = mongoose.model('User', UserSchema);
-*/
+module.exports = mongoose.model('arcade', ArcadeSchema);
