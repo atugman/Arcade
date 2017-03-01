@@ -6,7 +6,7 @@ function getHighScores(callbackFn) {
 // to real API later
 function displayHighScores(data) {
     for (index in data.arcade) {
-       $('high-scores-column').append(
+       $('.high-scores-column').append(
         '<li>' + data.arcade[index].score + '</li>');
     }
 }
@@ -20,13 +20,13 @@ function getAndDisplayHighScores() {
 $(function() {
     getAndDisplayHighScores();
 })
-
+//material design
 $.material.init();
 
 
 
-//  api
-$('other-games-column').click(function(){
+// third party api
+$('.other-games-column').click(function(){
 
   $.getJSON(`GEThttps://igdbcom-internet-game-database-v1.p.mashape.com/games/`, function( response ) {
     console.log(displayData(response.data));

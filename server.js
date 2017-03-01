@@ -3,8 +3,14 @@ const app = express();
 //const morgan = require('morgan');
 
 const mongoose = require('mongoose');
-const User = require('./models/user')
-mongoose.connect('mongodb://localhost:27017/arcade')
+mongoose.Promise = global.Promise;
+
+const arcade = require('./models/arcade')
+mongoose.connect('mongodb://atugman:unc123@ds157529.mlab.com:57529/arcade')
+
+var router = express.Router();
+
+//const {PORT, DATABASE_URL} = require('./config');
 
 //app.use(morgan('common'));
 //app.use(bodyParser.json());
@@ -12,44 +18,10 @@ app.use(express.static('public'));
 app.listen(process.env.PORT || 8080);
 exports.app = app;
 
-var MOCK_HIGH_SCORES = {
-    "highScores": [
-        {
-            "id": "1111111",
-            "score": 900,
-            "userID": "aaaaaa",
-            "userName": "John Doe",
-            "publishedAt": 1470016976609
-        },
-        {
-            "id": "2222222",
-            "score": 800,
-            "userID": "bbbbbbb",
-            "userName": "Jane Doe",
-            "publishedAt": 1470012976609
-        },
-        {
-            "id": "333333",
-            "score": 733,
-            "userID": "cccc",
-            "userName": "Jim Doe",
-            "publishedAt": 1470011976609
-        },
-        {
-            "id": "4444444",
-            "score": 933,
-            "userID": "ddddd",
-            "userName": "Jackie Doe",
-            "publishedAt": 1470009976609
-        }
-    ]
-}
-
-
 //GET REQUEST
 
 app.get('/arcade', (req, res) => {
-  res.json(arcade.scores);
+  res.json(arcade.score);
 });
 
 //POST REQUEST
