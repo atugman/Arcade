@@ -1,9 +1,12 @@
+
+
+
+
+
 function getHighScores(callbackFn) {
     setTimeout(function(){ callbackFn(arcade)}, 100);
 }
 
-// this function stays the same when we connect
-// to real API later
 function displayHighScores(data) {
     for (index in data.arcade) {
        $('.high-scores-column').append(
@@ -11,15 +14,64 @@ function displayHighScores(data) {
     }
 }
 
-// this function can stay the same even when we
-// are connecting to real API
 function getAndDisplayHighScores() {
     getHighScores(displayHighScores);
 }
 
 $(function() {
     getAndDisplayHighScores();
-})
+
+/*
+
+    
+    var submitScore = function(score, callback) {
+        $.post("http://localhost:8080/submitScore", {score:score}, function(data) {
+            if(!data) {
+                console.log("Server Communication Error");
+                callback && callback(false);
+                return;
+            }
+            if(data.error) {
+                console.log("Server Error: " + data.error);
+                callback && callback(false);
+                return;
+            }
+            callback && callback(true);
+        });
+    }
+    
+    var getScores = function(callback) {
+        $.post("http://localhost:8080/highScores", null, function(data) {
+            if(!data) {
+                console.log("Server Communication Error");
+                callback && callback(false);
+                return;
+            }
+            if(data.error) {
+                console.log("Server Error: " + data.error);
+                callback && callback(false);
+                return;
+            }
+            //callback && callback(data.scores);
+            function displayData(data) {
+                for(var i=0; i<data.length; i++) {
+                    var html = '<li>' + data[i].scores + '</li>';
+                    $('.high-scores-column').append(html);
+                    console.log(data);
+                }   
+            }
+        });
+    };
+};
+
+*/
+
+
+
+/* 
+
+
+
 //material design
 $.material.init();
 
@@ -41,3 +93,4 @@ function displayData(data) {
     }
   }
 });
+*/

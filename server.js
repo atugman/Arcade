@@ -5,7 +5,7 @@ const app = express();
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-const arcade = require('./models/arcade')
+const Arcade = require('./models/arcade')
 mongoose.connect('mongodb://atugman:unc123@ds157529.mlab.com:57529/arcade')
 
 var router = express.Router();
@@ -19,7 +19,7 @@ app.listen(process.env.PORT || 8080);
 exports.app = app;
 
 //GET REQUEST
-
+/*
 app.get('/arcade', (req, res) => {
   res.json(arcade.score);
 });
@@ -89,6 +89,50 @@ app.delete('/arcade/:id', (req, res) => {
       res.status(500).json({error: 'something went terribly wrong'});
     });
 });
+*/
 
 
-//add run/close server functions
+
+
+
+//notes from ray
+
+//yarn add express mongoose
+
+//create files and stuff
+
+//const express = require('express');
+//const app = express();
+
+//app.listen(8080, () => console.log('hey'))
+
+//replace function keyword with =>
+
+//use nodemon
+
+//const mongoose = require('mongoose');
+
+//const arcade = require('.models/arcade')
+
+app.get('/test', (req, res) => {
+  arcade.find((err, scores) => {
+    if(err)
+      res.send(err)
+    res.json(scores)
+  })
+})
+
+app.post('/scores', (req, res) => {
+  const arcade = new Arcade()
+  arcade.name = "andrew"
+  arcade.score = 7 //replace with ajax reference?
+  arcade.save((error) => {
+    if(error) {
+      res.send(error)
+    } else {
+      res.json({msg: 'scores updated'})
+    }
+  }
+)
+});
+

@@ -234,3 +234,33 @@ else if(ya + aquaY > (canvas.height-ballRadius)) {
     //ya +=aquaY;
 }
 setInterval(draw, 10);
+
+
+
+//AJAX
+
+
+    $('.high-scores-column').on('submit', function(event) {
+        event.preventDefault()
+        var input = event.target.userInput.value
+        var name = event.target.userInput.name
+        var score = score
+        //console.log(input);
+
+        var data = {
+            input: input,
+            name: name,
+            score: score
+        }
+
+        $.post("localhost:8080/scores", data, (response) => {
+            $.getJSON("localhost:8080/arcade", function(response){
+              // loop
+
+              // 
+
+              console.log(response);
+            })
+          })
+    })
+
