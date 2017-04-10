@@ -121,7 +121,7 @@ function collisionDetection() {
   }
 }
 
-function gameover(){
+function gameOver(){
   var msg = {
     "messageType": "SCORE",
     "score": score
@@ -129,6 +129,9 @@ function gameover(){
   window.parent.postMessage(msg, "*");
   alert("GAME OVER");
   document.location.reload();
+
+
+
 }
 
 var message =  {
@@ -138,6 +141,8 @@ var message =  {
   "height": 450
 }
 };
+
+
 
 /*****
 CANVAS
@@ -163,7 +168,7 @@ function draw() {
    } else if (y + dy > (canvas.height-ballRadius)) {
       //checking if the ball hits the paddle
       if(x > paddleX && x < paddleX + paddleWidth) {
-        gameover();
+        gameOver();
       } else {
         dy = -dy;
       }
@@ -178,7 +183,7 @@ function draw() {
   } else if (yb + dby > (canvas.height-ballRadius)) {
       //checking if the ball hits the paddle
       if(xb > paddleX && xb < paddleX + paddleWidth ) {
-        gameover();
+        gameOver();
       } else {
         dby = -dby;
       }
@@ -193,7 +198,7 @@ function draw() {
   } else if (yz + dbby > (canvas.height-ballRadius)) {
       //checking if the yellow ball hits the paddle
       if(xz > paddleX && xz < paddleX + paddleWidth ) {
-        gameover();
+        gameOver();
       } else {
         dbby = -dbby;
       }
@@ -237,30 +242,58 @@ setInterval(draw, 10);
 
 
 
-//AJAX
+// AJAX
 
+$(document).ready(function(){
+  var data = {
+    name: name,
+    score: score
+}
 
-    $('.high-scores-column').on('submit', function(event) {
-        event.preventDefault()
-        var input = event.target.userInput.value
-        var name = event.target.userInput.name
-        var score = score
-        //console.log(input);
+        $.ajax({
+            url : "http://localhost:8080/scores", // heroku url
+            type: "GET",
+            data : data,
+            success: function(data) {
+              for(var i=0; i<data.length; i++) {
+                data.sort(function(a, b) {
+                  return parseFloat(a.score) - parseFloat(b.score);
+                });
+                var html = "<tr><td class='table-data-score'>" + data[i].score + "</td><td class='table-data-name'>" + data[i].name + '</td></tr>';
+                $('.scores-table').append(html);
+                console.log(data);
+                //console.log(response);
+            }
+          }
+        })
+});
 
-        var data = {
-            input: input,
-            name: name,
-            score: score
+    
+
+$('.high-scores-form').on('submit', function(event) {
+    event.preventDefault()
+    var name = event.target.name.value
+    var score = event.target.score.value
+    
+    console.log('score sent');
+
+    var data = {
+        name: name,
+        score: score
+    }
+    console.log(data);
+
+    $.ajax({
+        url : "http://localhost:8080/scores", // heroku url
+        type: "POST",
+        data : data,
+        success: function(response) {
+          // return all high scores code here
+          // loop over + add to li etc.
+          // sort high scores
+          console.log(response);
         }
+    });
 
-        $.post("localhost:8080/scores", data, (response) => {
-            $.getJSON("localhost:8080/arcade", function(response){
-              // loop
-
-              // 
-
-              console.log(response);
-            })
-          })
-    })
+})
 

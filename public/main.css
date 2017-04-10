@@ -6,3 +6,16 @@ canvas {
 	width: 100%
 }
 
+.table {
+	display: table;
+    border-collapse: separate;
+    border-color: red;
+}
+
+.table-data-score {
+	color: red;
+}
+
+.table-data-name {
+	color: blue;
+}

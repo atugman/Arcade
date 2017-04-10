@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html>
+<html lang="en">
+
 <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Freelancer - Start Bootstrap Theme</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="css/freelancer.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
 
 
@@ -88,21 +109,33 @@ use form/input/button for scores-->
         <canvas id="myCanvas" width="480" height="320"></canvas>
     
         <div><p>Move the paddle to the brick across the screen using your arrow keys without getting touched by the moving balls!</p></div>
+        
+        <button class="load">Load</button>
+        <button class="save">Save</button>
     </div>
 	
 <!--high scores column-->
     <div class="high-scores-column col-lg-3">
         <button class="card btn btn-flat btn-warning high-scores-list-items">High Scores</button>
-        <form class="high-score-form">
+
+
+        <form class="high-scores-form">
             Name:<br>
+            
             <input type="text" name="name"><br>
+            
             Score<br>
+            
             <input type="text" name="score">
+
+            <button>Submit</button>
+            <table class="table">
+                <th class="scores-table">High Scores</th>
+
+            </table>
         </form>
-        <ol class="card-content">
 
 
-        </ol>
     </div>
 </div>
 	<!-- jQuery -->
