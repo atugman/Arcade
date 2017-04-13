@@ -1,1 +1,3 @@
 node_modules
+usr/local/bin/npm
+usr/local/bin/node-gyp

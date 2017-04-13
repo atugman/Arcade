@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-//const morgan = require('morgan');
+const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
 const mongoose = require('mongoose');
@@ -11,16 +11,20 @@ const User = require('./models/users')
 
 mongoose.connect('mongodb://atugman:unc123@ds157529.mlab.com:57529/arcade')
 
-var router = express.Router();
+const router = express.Router();
+const {router: usersRouter} = require('./users');
 
-//const {PORT, DATABASE_URL} = require('./config');
+app.use('/users/', usersRouter);
 
-exports.DATABASE_URL = process.env.DATABASE_URL ||
-                       global.DATABASE_URL ||
-                      'mongodb://localhost/arcade';
-exports.PORT = process.env.PORT || 8080;
+const {PORT, DATABASE_URL} = require('./config');
 
-//app.use(morgan('common'));
+//moved to config.js
+//exports.DATABASE_URL = process.env.DATABASE_URL ||
+//                       global.DATABASE_URL ||
+//                      'mongodb://localhost/arcade';
+//exports.PORT = process.env.PORT || 8080;
+
+app.use(morgan('common'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
@@ -50,14 +54,14 @@ app.post('/scores', (req, res) => {
   arcade.save((error) => {
     if(error) {
       res.send(error)
-    } //else {
+    } else {
+      res.send('user created')
       //Arcade.find((err, scores) => {
         //if(err)
           //res.send(err)
-        //scores.sort()
         //res.json(scores)
       //})
-    //}
+    }
   }
 )
 });

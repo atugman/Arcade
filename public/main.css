@@ -2,8 +2,11 @@ canvas {
 	background: #eee;
 }
 
-.row {
-	width: 100%
+.three {
+	width: 100%;
+	position: absolute;
+	box-sizing: border-box;
+	height: ;
 }
 
 .table {

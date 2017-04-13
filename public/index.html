@@ -13,10 +13,10 @@
     <title>Freelancer - Start Bootstrap Theme</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="landing-page/startbootstrap-freelancer/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Theme CSS -->
-    <link href="css/freelancer.min.css" rel="stylesheet">
+    <link href="landing-page/startbootstrap-freelancer/css/freelancer.min.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -35,7 +35,7 @@
     <link rel="stylesheet" type="text/css" href="..Documents/Projects/node-projects/node-capstone/node_modules/bootstrap/dist/css/bootstrap-material-design.css">
     <link rel="stylesheet" type="text/css" href="..Documents/Projects/node-projects/node-capstone/node_modules/bootstrap-material-design/dist/css/ripples.min.css">
 -->
-    <!-- Bootstrap-->
+    <!-- Bootstrap
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.iife.js">
@@ -46,7 +46,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.umd.js.map">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.umd.min.js">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.umd.min.js.map">
-
+-->
     <link rel="stylesheet" type="text/css" href="main.css">
 
 
@@ -63,11 +63,12 @@
 
 
 </head>
-<body>
+<body id="page-top" class="index">
 
 
 <!--material design card 
 use form/input/button for scores-->
+
 
 <div class="card">
     <div class="card-height-indicator"></div>
@@ -86,13 +87,50 @@ use form/input/button for scores-->
         <!--<footer class="card-footer">
             <button class="btn btn-flat">Share</button>
             <button class="btn btn-flat btn-warning">Learn More</button>
-        </footer>
--->
+        </footer>-->
+
     </div>
 </div>
 
+<div id="skipnav"><a href="#maincontent">Skip to main content</a></div>
+
+    <!-- Navigation -->
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="#page-top">Andrew's Arcade</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <!--
+                    <li class="page-scroll">
+                        <a href="#portfolio">Portfolio</a>
+                    </li>
+                    -->
+                    <li class="page-scroll">
+                        <a href="#about">About</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
 <!--column start-->
-<div class="row"> <!--row contains 3 embedded divs that are all columns-->
+<div class="three container maincontent"> <!--row contains 3 embedded divs that are all columns-->
 <!--other games column-->
     <div class="other-games-column col-lg-3">
         <button class="card btn btn-flat btn-warning">Check out these other cool games!</button>
