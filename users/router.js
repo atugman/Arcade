@@ -10,7 +10,7 @@ const router = express.Router();
 //app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded());
 router.use(jsonParser);
-router.use(jsonParser.urlencoded());
+// broken: router.use(jsonParser.urlencoded());
 
 
 

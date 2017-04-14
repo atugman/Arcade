@@ -127,11 +127,9 @@ function gameOver(){
     "score": score
   };
   window.parent.postMessage(msg, "*");
+
   alert("GAME OVER");
   document.location.reload();
-
-
-
 }
 
 var message =  {
@@ -261,6 +259,7 @@ $(document).ready(function(){
                 });
                 var html = "<tr><td class='table-data-score'>" + data[i].score + "</td><td class='table-data-name'>" + data[i].name + '</td></tr>';
                 $('.scores-table').append(html);
+                //$('high-scores-form').reload().on('submit')
                 console.log(data);
                 //console.log(response);
             }
@@ -268,8 +267,9 @@ $(document).ready(function(){
         })
 });
 
-    
 
+
+//add score to database
 $('.high-scores-form').on('submit', function(event) {
     event.preventDefault()
     var name = event.target.name.value
@@ -291,6 +291,52 @@ $('.high-scores-form').on('submit', function(event) {
           // return all high scores code here
           // loop over + add to li etc.
           // sort high scores
+          console.log(response);
+        }
+    });
+
+})
+/*
+function render() {
+  $('.high-scores-form').hide();
+  for (var i = 0; i < data[i].length; i++) {
+    $('.scores-table').append(data)[i]
+  }
+  $('.scores-table').text(data[i]);
+  for (var i = 0; i < data[i].length; i++) {
+                var html = "<tr><td class='table-data-score'>" + data[i].score + "</td><td class='table-data-name'>" + data[i].name + '</td></tr>';
+                $('.scores-table').append(html);
+  data.show();
+}
+
+*/
+$('.login-form').on('submit', function(event) {
+    event.preventDefault()
+    var username = event.target.username.value
+    var password = event.target.password.value
+    var firstName = event.target.firstName.value
+    var lastName = event.target.lastName.value
+    
+    console.log('user created');
+
+    var user = {
+        username: Username,
+        password: Password,
+        firstName: "First Name", // "First Name" ?
+        lastName: lastName
+    }
+    //console.log(user);
+    //console.log(data);
+    //console.log(response);
+    //console.log(event);
+    console.log(firstName);
+
+    $.ajax({
+        url : "http://localhost:8080/users/", // heroku url
+        type: "POST",
+        user : user,
+        success: function(response) {
+
           console.log(response);
         }
     });
