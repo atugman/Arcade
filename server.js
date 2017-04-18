@@ -229,7 +229,10 @@ app.get('/users', (req, res) => {//added "users"
     .catch(err => console.log(err) && res.status(500).json({message: 'Internal server error'}));
 });
 
-
+app.get('/users',
+  passport.authenticate('basic', {session: false}),
+  (req, res) => res.json({user: req.user.apiRepr()})
+);
 
 
 app.get('/me',

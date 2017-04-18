@@ -349,7 +349,7 @@ $('.high-scores-form').on('submit', function(event) { //.save, on click, change 
 })
 
 */
-
+//add new user
 $('.new-user-form').on('submit', function(event) {
     event.preventDefault()
     var username = event.target.Username.value
@@ -365,24 +365,39 @@ $('.new-user-form').on('submit', function(event) {
         firstName: firstName,
         lastName: lastName
     }
-    //console.log(user);
-    //console.log(data);
-    //console.log(response);
-    //console.log(event);
-
-
+    //ajax call for adding new users, POST
     $.ajax({
         url : "http://localhost:8080/users", // heroku url
         type: "POST",
         data : user,
+        //success function will automatically log in
+        //newly created user via embedded GET request
         success: function(response) {
+          event.preventDefault()
+          var username = event.target.Username.value
+          var password = event.target.Password.value
+                var user = {
+                    username: username,
+                    password: password,
+                }
 
-        }
+          $.ajax({
+              url : "http://localhost:8080/existing", // heroku url
+              type: "GET",
+              data : user,
+              success: function(response) {
+                console.log(response);
+                  var html = "<p>Logged in as " + username + "</p>";
+                  $('.random').append(html);
+          }
+      })
+      }
+    })
     });
 
-})
 
 
+//existing user login form
 $('.login-form').on('submit', function(event) {
     event.preventDefault()
     var username = event.target.Username.value
