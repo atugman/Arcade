@@ -3,9 +3,9 @@ const express = require('express');
 const jsonParser = require('body-parser').json();
 const passport = require('passport');
 
-const {User} = require('../models/users');
+const {User} = require('../models/users/');
 
-const router = express.Router();
+
 
 //app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded());
@@ -40,7 +40,7 @@ const basicStrategy = new BasicStrategy((username, password, callback) => {
 passport.use(basicStrategy);
 router.use(passport.initialize());
 
-router.post('/', (req, res) => {
+router.post('/users/', (req, res) => {
   if (!req.body) {
     return res.status(400).json({message: 'No request body'});
   }

@@ -11,13 +11,26 @@ canvas {
 .table {
 	display: table;
     border-collapse: separate;
-    border-color: red;
 }
 
 .table-data-score {
-	color: red;
+	color: white;
+	font-size: 16px;
 }
 
 .table-data-name {
-	color: blue;
+	color: white;
+	font-size: 16px;
+}
+
+h1 {
+	color: white;
+}
+
+.input {
+	color: #18BC9C;
+}
+
+button {
+	color: #18BC9C;
 }

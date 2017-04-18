@@ -121,16 +121,55 @@ function collisionDetection() {
   }
 }
 
+
+window.onload = function() {
+       //when the document is finished loading, replace everything
+       //between the <a ...> </a> tags with the value of splitText
+   document.getElementById("myLink").innerHTML=score;
+} 
+
+
 function gameOver(){
   var msg = {
     "messageType": "SCORE",
     "score": score
   };
   window.parent.postMessage(msg, "*");
-
+//post request here
+//req.session check on this
+//set username to whatever logged in user is, via req.session
+//send user id back to client, then send that back
   alert("GAME OVER");
   document.location.reload();
+
+          $('.high-scores-form').submit(function(event) { //.save, on click, change score =
+              event.preventDefault()
+              var name = event.target.name.value
+              
+              console.log('score sent');
+
+              var data = {
+                  name: name,
+                  score: score
+              }
+              console.log(data);
+
+              $.ajax({
+                  url : "http://localhost:8080/scores", // heroku url
+                  type: "POST",
+                  data : data,
+                  success: function(response) {
+                    // return all high scores code here
+                    // loop over + add to li etc.
+                    // sort high scores
+
+                  }
+              });
+
+          })
 }
+
+
 
 var message =  {
   messageType: "SETTING",
@@ -260,20 +299,32 @@ $(document).ready(function(){
                 var html = "<tr><td class='table-data-score'>" + data[i].score + "</td><td class='table-data-name'>" + data[i].name + '</td></tr>';
                 $('.scores-table').append(html);
                 //$('high-scores-form').reload().on('submit')
-                console.log(data);
                 //console.log(response);
             }
           }
         })
 });
 
+//render function
+//passing data from get ajax request
+//loop then reutnr li
+//game over/post/save score
+//return all scores in the post reqest
+//save then find the scores
+//then client = call function and pass it the data, loop over and update ui
 
+//get request when app scores
+//game over function, post request - save score
+//server = save score - scores.find instead req.score
 
 //add score to database
-$('.high-scores-form').on('submit', function(event) {
+
+
+/* moved to gameover function
+$('.high-scores-form').on('submit', function(event) { //.save, on click, change score =
     event.preventDefault()
     var name = event.target.name.value
-    var score = event.target.score.value
+    var score = score
     
     console.log('score sent');
 
@@ -291,11 +342,71 @@ $('.high-scores-form').on('submit', function(event) {
           // return all high scores code here
           // loop over + add to li etc.
           // sort high scores
-          console.log(response);
+
         }
     });
 
 })
+
+*/
+
+$('.new-user-form').on('submit', function(event) {
+    event.preventDefault()
+    var username = event.target.Username.value
+    var password = event.target.Password.value
+    var firstName = event.target.firstname.value
+    var lastName = event.target.lastname.value
+    
+    console.log('user created');
+
+    var user = {
+        username: username,
+        password: password,
+        firstName: firstName,
+        lastName: lastName
+    }
+    //console.log(user);
+    //console.log(data);
+    //console.log(response);
+    //console.log(event);
+
+
+    $.ajax({
+        url : "http://localhost:8080/users", // heroku url
+        type: "POST",
+        data : user,
+        success: function(response) {
+
+        }
+    });
+
+})
+
+
+$('.login-form').on('submit', function(event) {
+    event.preventDefault()
+    var username = event.target.Username.value
+    var password = event.target.Password.value
+  
+
+    var user = {
+        username: username,
+        password: password,
+    }
+
+    $.ajax({
+        url : "http://localhost:8080/existing", // heroku url
+        type: "GET",
+        data : user,
+        success: function(response) {
+          console.log(response);
+            var html = "<p>Logged in as " + username + "</p>";
+            $('.random').append(html);
+    }
+
+})
+})
+
 /*
 function render() {
   $('.high-scores-form').hide();
@@ -308,38 +419,4 @@ function render() {
                 $('.scores-table').append(html);
   data.show();
 }
-
 */
-$('.login-form').on('submit', function(event) {
-    event.preventDefault()
-    var username = event.target.username.value
-    var password = event.target.password.value
-    var firstName = event.target.firstName.value
-    var lastName = event.target.lastName.value
-    
-    console.log('user created');
-
-    var user = {
-        username: Username,
-        password: Password,
-        firstName: "First Name", // "First Name" ?
-        lastName: lastName
-    }
-    //console.log(user);
-    //console.log(data);
-    //console.log(response);
-    //console.log(event);
-    console.log(firstName);
-
-    $.ajax({
-        url : "http://localhost:8080/users/", // heroku url
-        type: "POST",
-        user : user,
-        success: function(response) {
-
-          console.log(response);
-        }
-    });
-
-})
-
