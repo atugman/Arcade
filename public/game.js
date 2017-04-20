@@ -287,7 +287,6 @@ $(document).ready(function(){
     name: name,
     score: score
 }
-
         $.ajax({
             url : "http://localhost:8080/scores", // heroku url
             type: "GET",
@@ -421,13 +420,13 @@ $('.login-form').on('submit', function(event) {
 
 $('.patch-test').on('submit', function(event) {
   event.preventDefault()
-  var score = event.target.Score.value
 
   $.ajax({
         url : "http://localhost:8080/users/" + score, // heroku url
         type: "PATCH",
         success: function(response) {
           console.log(response);
+          console.log(score);
     }
   })
 })

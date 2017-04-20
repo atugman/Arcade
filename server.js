@@ -45,7 +45,7 @@ app.use(bodyParser());
 
 
 app.get('/scores', (req, res) => {
-  Arcade.find((err, scores) => {
+  User.find((err, scores) => {
  //Arcade.findById(id, 'name score', function (err, arcade) {
   //Arcade.find({_id: id}, function (err, user) {
 
@@ -59,7 +59,7 @@ app.get('/scores', (req, res) => {
 app.post('/scores', (req, res) => {
   console.log("working...");
   console.log(req.body);
-  const arcade = new Arcade()
+  const user = new Arcade()
   arcade.name = req.body.name
   arcade.score = req.body.score
   arcade.save((error) => {
@@ -124,7 +124,7 @@ passport.deserializeUser(function (user, done) {
 });
 
 app.get('/existing',
-  passport.authenticate('basic', {session: true}),
+  passport.authenticate('basic', {session: false}),
   (req, res) => res.json({user: req.user.apiRepr()})
 );
 //test here
