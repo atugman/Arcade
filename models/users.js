@@ -14,7 +14,8 @@ const UserSchema = mongoose.Schema({
     required: true
   },
   firstName: {type: String, default: ""},
-  lastName: {type: String, default: ""}
+  lastName: {type: String, default: ""},
+  score: Number
 });
 
 UserSchema.methods.apiRepr = function() {

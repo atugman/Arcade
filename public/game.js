@@ -86,9 +86,9 @@ function drawScore() {
   ctx.fillText("Score: "+score, 8, 20);
 }
 
-function drawBall(radius , color , xa,ya) {
+function drawBall(ballRadius , color , xa,ya) {
   ctx.beginPath();
-  ctx.arc(xa, ya, radius, 0, Math.PI*2);
+  ctx.arc(xa, ya, ballRadius, 0, Math.PI*2);
   ctx.fillStyle = color;
   ctx.fill();
   ctx.closePath();
@@ -141,35 +141,36 @@ function gameOver(){
 //send user id back to client, then send that back
   alert("GAME OVER");
   document.location.reload();
-
-          $('.high-scores-form').submit(function(event) { //.save, on click, change score =
-              event.preventDefault()
-              var name = event.target.name.value
-              
-              console.log('score sent');
-
-              var data = {
-                  name: name,
-                  score: score
-              }
-              console.log(data);
-
-              $.ajax({
-                  url : "http://localhost:8080/scores", // heroku url
-                  type: "POST",
-                  data : data,
-                  success: function(response) {
-                    // return all high scores code here
-                    // loop over + add to li etc.
-                    // sort high scores
-
-                  }
-              });
-
-          })
 }
+/*
+function gameOverA {
+  $('.high-scores-form').submit(function(event) { //.save, on click, change score =
+      event.preventDefault()
+      var name = event.target.name.value
+      
+      console.log('score sent');
 
+      var data = {
+          name: name,
+          score: score
+      }
+      console.log(data);
 
+      $.ajax({
+          url : "http://localhost:8080/users", // heroku url
+          type: "PUT",
+          data : data,
+          success: function(response) {
+            // return all high scores code here
+            // loop over + add to li etc.
+            // sort high scores
+
+          }
+      });
+
+  })
+}
+*/
 
 var message =  {
   messageType: "SETTING",
@@ -187,8 +188,8 @@ CANVAS
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawBall(ballRadius , 'blue', x,y);
-  drawBall(ballRadius, 'green',xb,yb);
+  drawBall(ballRadius , 'blue', x, y);
+  drawBall(ballRadius, 'green', xb, yb);
   drawBall(ballRadius, 'red', xz, yz);
   //drawBall(ballRadius, 'aqua', xa, yz);
   drawPaddle();
@@ -327,13 +328,11 @@ $('.high-scores-form').on('submit', function(event) { //.save, on click, change 
     var score = score
     
     console.log('score sent');
-
     var data = {
         name: name,
         score: score
     }
     console.log(data);
-
     $.ajax({
         url : "http://localhost:8080/scores", // heroku url
         type: "POST",
@@ -342,12 +341,9 @@ $('.high-scores-form').on('submit', function(event) { //.save, on click, change 
           // return all high scores code here
           // loop over + add to li etc.
           // sort high scores
-
         }
     });
-
 })
-
 */
 //add new user
 $('.new-user-form').on('submit', function(event) {
@@ -417,10 +413,26 @@ $('.login-form').on('submit', function(event) {
           console.log(response);
             var html = "<p>Logged in as " + username + "</p>";
             $('.random').append(html);
+            console.log(user);
     }
 
 })
 })
+
+$('.patch-test').on('submit', function(event) {
+  event.preventDefault()
+  var score = event.target.Score.value
+
+  $.ajax({
+        url : "http://localhost:8080/users/" + score, // heroku url
+        type: "PATCH",
+        success: function(response) {
+          console.log(response);
+    }
+  })
+})
+
+
 
 /*
 function render() {

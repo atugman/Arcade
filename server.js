@@ -46,6 +46,10 @@ app.use(bodyParser());
 
 app.get('/scores', (req, res) => {
   Arcade.find((err, scores) => {
+ //Arcade.findById(id, 'name score', function (err, arcade) {
+  //Arcade.find({_id: id}, function (err, user) {
+
+
     if(err)
       res.send(err)
     res.json(scores)
@@ -81,6 +85,7 @@ app.post('/scores', (req, res) => {
 
 const basicStrategy = new BasicStrategy((username, password, callback) => {
   let user;
+  console.log(username);
   User
     .findOne({username: username})
     .exec()
@@ -109,40 +114,37 @@ passport.use(basicStrategy);
 
 passport.serializeUser(function (user, done) {
     done(null, user.id);
-    console.log(user);
     //log in, send back to client
 });
 
 passport.deserializeUser(function (user, done) {
-    User.findById(id, function (err, user) {
+    User.findById(_id, function (err, user) {
         done(err, user);
     });
 });
 
-/*
-app.post('/existing', (username, password, callback) => {
-  const BasicStrategy = new BasicStrategy;
-  var username = req.body.username;
-  var password = req.body.password;
-  passport.initialize.session;
-  res.send(session.user)
-});
-
-app.post('/existing',
-  passport.authenticate('BasicStrategy'),
-  function(req, res) {
-    // If this function gets called, authentication was successful.
-    // `req.user` contains the authenticated user.
-    res.redirect('/existing/' + req.user.username);
-    console.log(req);
-    console.log(res);
-  });
-*/
-
 app.get('/existing',
-  passport.authenticate('basic', {session: false}),
+  passport.authenticate('basic', {session: true}),
   (req, res) => res.json({user: req.user.apiRepr()})
 );
+//test here
+//user object
+
+app.patch('/users/:score', //wildcard
+  passport.authenticate('basic', {session: false}),
+  (req, res) => {
+  const updatedItem = User.update({_id: req.user._id}, {
+    score: req.params.score
+  }, (err) => {
+    if (err) {
+      res.json(err)
+    } 
+    console.log(updatedItem)
+    res.json(updatedItem)
+  })
+});
+
+//Model.findByIdAndUpdate(id, updateObj, {new: true}, function(err, model) {...
 
 
 //existing user endpoint
@@ -234,7 +236,7 @@ app.get('/users',
   (req, res) => res.json({user: req.user.apiRepr()})
 );
 
-
+//delete this, test
 app.get('/me',
   passport.authenticate('basicStrategy', {session: false}),
   (req, res) => res.json({user: req.user.apiRepr()})
