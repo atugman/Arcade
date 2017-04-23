@@ -7,7 +7,7 @@ var app = server.app;
 var storage = server.storage;
 
 chai.use(chaiHttp);
-
+/*
 describe('index page', function() {
   it('exists', function(done) {
     chai.request(app)
@@ -21,7 +21,7 @@ describe('index page', function() {
 });
 
 
-/*
+
 describe('arcade', function() {
 
   before(function() {

@@ -123,6 +123,7 @@ passport.deserializeUser(function (user, done) {
     });
 });
 
+
 app.get('/existing',
   passport.authenticate('basic', {session: false}),
   (req, res) => res.json({user: req.user.apiRepr()})
@@ -231,8 +232,9 @@ app.get('/users', (req, res) => {//added "users"
     .catch(err => console.log(err) && res.status(500).json({message: 'Internal server error'}));
 });
 
+//login
 app.get('/users',
-  passport.authenticate('basic', {session: false}),
+  passport.authenticate('basic', {session: true}),
   (req, res) => res.json({user: req.user.apiRepr()})
 );
 
@@ -242,7 +244,12 @@ app.get('/me',
   (req, res) => res.json({user: req.user.apiRepr()})
 );
 
-
+app.get('/logout', function(req, res){
+  //passport.authenticate('basic', {session: false}),
+  //(req, res) => {
+  req.logout();
+  res.redirect('/');
+})
 
 
 module.exports = {User};

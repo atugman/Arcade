@@ -130,6 +130,15 @@ window.onload = function() {
 
 
 function gameOver(){
+
+  $.ajax({
+        url : "http://localhost:8080/users/" + score, // heroku url
+        type: "PATCH",
+        success: function(response) {
+    }
+  })
+
+
   var msg = {
     "messageType": "SCORE",
     "score": score
@@ -296,7 +305,7 @@ $(document).ready(function(){
                 data.sort(function(a, b) {
                   return parseFloat(a.score) - parseFloat(b.score);
                 });
-                var html = "<tr><td class='table-data-score'>" + data[i].score + "</td><td class='table-data-name'>" + data[i].name + '</td></tr>';
+                var html = "<tr><td class='table-data-score'>" + data[i].score + "</td><td class='table-data-name'>" + data[i].username + '</td></tr>';
                 $('.scores-table').append(html);
                 //$('high-scores-form').reload().on('submit')
                 //console.log(response);
@@ -304,6 +313,7 @@ $(document).ready(function(){
           }
         })
 });
+
 
 //render function
 //passing data from get ajax request
@@ -381,7 +391,6 @@ $('.new-user-form').on('submit', function(event) {
               type: "GET",
               data : user,
               success: function(response) {
-                console.log(response);
                   var html = "<p>Logged in as " + username + "</p>";
                   $('.random').append(html);
           }
@@ -409,40 +418,34 @@ $('.login-form').on('submit', function(event) {
         type: "GET",
         data : user,
         success: function(response) {
-          console.log(response);
             var html = "<p>Logged in as " + username + "</p>";
             $('.random').append(html);
-            console.log(user);
     }
 
 })
 })
 
-$('.patch-test').on('submit', function(event) {
+$('.save-score-button').on('submit', function(event) {
   event.preventDefault()
 
   $.ajax({
         url : "http://localhost:8080/users/" + score, // heroku url
         type: "PATCH",
         success: function(response) {
-          console.log(response);
-          console.log(score);
     }
   })
 })
 
 
-
 /*
-function render() {
-  $('.high-scores-form').hide();
-  for (var i = 0; i < data[i].length; i++) {
-    $('.scores-table').append(data)[i]
+$('.logout-button').on('click', function(event) {
+  event.preventDefault()
+
+  $.ajax({
+        url : "http://localhost:8080/logout/", // heroku url
+        type: "GET",
+        success: function(response) {
   }
-  $('.scores-table').text(data[i]);
-  for (var i = 0; i < data[i].length; i++) {
-                var html = "<tr><td class='table-data-score'>" + data[i].score + "</td><td class='table-data-name'>" + data[i].name + '</td></tr>';
-                $('.scores-table').append(html);
-  data.show();
-}
+})
+})
 */
