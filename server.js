@@ -45,43 +45,25 @@ app.use(bodyParser());
 
 
 app.get('/scores', (req, res) => {
+  User.find({}, null, {sort: '-score'}, function(err, scores) {
+    if(err)
+      return res.send(err)
+        console.log('hey ', scores);
+    res.json(scores)
+  })
+})
+
+//Article.find({}, null, {sort: '-date'}, function(err, docs) { ... });
+
+/*
+app.get('/scores', (req, res) => {
   User.find((err, scores) => {
-    /*const sortedScores = User.users.aggregate(
-   [
-     { $sort : { score : -1 } }
-   ]
-)*/
     if(err)
       res.send(err)
     res.json(scores)
   })
 })
-
-app.post('/scores', (req, res) => {
-  console.log("working...");
-  console.log(req.body);
-  const user = new Arcade()
-  arcade.name = req.body.name
-  arcade.score = req.body.score
-  arcade.save((error) => {
-    if(error) {
-      res.send(error)
-    } else {
-      res.send('user created')
-      //Arcade.find((err, scores) => {
-        //if(err)
-          //res.send(err)
-        //res.json(scores)
-      //})
-    }
-  }
-)
-});
-
-
-
-
-
+*/
 //AUTH
 
 const basicStrategy = new BasicStrategy((username, password, callback) => {
@@ -132,13 +114,12 @@ app.get('/existing',
 app.patch('/users/:score',
   passport.authenticate('basic', {session: false}),
   (req, res) => {
-  const updatedItem = User.update({_id: req.user._id}, {
-    score: req.params.score
-  }, (err) => {
+    console.log(req.user);
+    User.findByIdAndUpdate(req.user._id, {score: req.params.score}, {new: true},
+  (err, updatedItem) => {
     if (err) {
       res.json(err)
     } 
-    console.log(updatedItem)
     res.json(updatedItem)
   })
 });
@@ -157,7 +138,6 @@ app.patch('/users/:score',
   }
 });
 */
-//Model.findByIdAndUpdate(id, updateObj, {new: true}, function(err, model) {...
 
 app.post('/users', (req, res) => {
   if (!req.body) {
@@ -229,6 +209,10 @@ app.get('/users',
   (req, res) => res.json({user: req.user.apiRepr()})
 );
 
+
+
+//endpoint /logout
+//req.session.destroy
 /*
 app.get('/logout', function(req, res){
   //passport.authenticate('basic', {session: false}),
@@ -247,12 +231,11 @@ req.session.destroy(function() {
   res.redirect('/');
   });
 
-
+*/
 app.get('/logout', function (req, res){
   req.session.destroy(function (err) {
-    res.redirect('/'); //Inside a callback… bulletproof!
+    res.redirect('/'); //do this on client sideInside a callback… bulletproof!
   });
 });
 
 module.exports = {User};
-*/
