@@ -410,7 +410,7 @@ $('.login-form').on('submit', function(event) {
         type: "GET",
         data : user,
         success: function(response) {
-            var html = "<p>Logged in as " + response.user.username + "</p>";
+            var html = "<p>Login attempt successful</p>";
             console.log(user);
             console.log(username);
             $('.random').append(html);
@@ -418,6 +418,21 @@ $('.login-form').on('submit', function(event) {
 
 })
 })
+
+//this will show who is logged in on page load
+$(document).ready(function(response) {
+    $.ajax({
+      url : "http://localhost:8080/existing", // heroku url
+      type: "GET",
+      success: function(response) {
+          var username = response.user.username
+          var html = "<p>Logged in as " + username + "</p>";
+          console.log(username);
+          $('.random').append(html);
+  }
+})
+})
+
 
 $('.save-score-button').on('submit', function(event) {
   event.preventDefault()
