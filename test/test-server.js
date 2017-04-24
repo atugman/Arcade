@@ -1,48 +1,34 @@
-var chai = require('chai');
-var chaiHttp = require('chai-http');
-var server = require('../server.js');
+const chai = require('chai');
+const chaiHttp = require('chai-http');
 
-var should = chai.should();
-var app = server.app;
-var storage = server.storage;
+const mongoose = require('mongoose');
+
+// this makes the should syntax available throughout
+// this module
+const should = chai.should();
+
+const {DATABASE_URL} = require('../config');
+const {USER} = require('../../models');
+const {closeServer, runServer, app} = require('../server');
+const {TEST_DATABASE_URL} = require('../config');
 
 chai.use(chaiHttp);
-/*
-describe('index page', function() {
-  it('exists', function(done) {
-    chai.request(app)
-      .get('/')
-      .end(function(err, res) {
-        res.should.have.status(200);
-        res.should.be.html;
-        done();
-    });
-  });
-});
-
-
-
-describe('arcade', function() {
-
-  before(function() {
-    return runServer();
-  });
-
-  after(function() {
-    return closeServer();
-  });
 
   describe('GET endpoint', function() {
 
-    it('should return high scores', function() {
+    it('should return all scores', function() {
       let res;
       return chai.request(app)
-        .get('/arcade')
+        .get('/scores')
         .then(_res => {
           res = _res;
-          res.should.have.status(200);
+          //res.should.have.status(200);
+          res.body.should.have.length.of.at.least(1);
+
+          //return BlogPost.count();
         })
+        //.then(count => {
+        //  res.body.should.have.length.of(count);
+        //});
     });
-});
-});
-*/
+  });

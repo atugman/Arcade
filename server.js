@@ -145,6 +145,20 @@ app.patch('/users/:score', //wildcard
   })
 });
 
+/*
+app.patch('/users/:score',
+  passport.authenticate('basic', {session: false}),
+  (req, res) => {
+    const updatedItem = arcade.users.findByIdAndUpdate( { _id: req.user._id }, {new: true}, { $max: { score: req.params.score } } ); 
+  (err) => {
+    if (err) {
+      res.json(err)
+    }
+    console.log(updatedItem)
+    res.json(updatedItem)
+  }
+});
+*/
 //Model.findByIdAndUpdate(id, updateObj, {new: true}, function(err, model) {...
 
 
@@ -238,18 +252,23 @@ app.get('/users',
   (req, res) => res.json({user: req.user.apiRepr()})
 );
 
-//delete this, test
-app.get('/me',
-  passport.authenticate('basicStrategy', {session: false}),
-  (req, res) => res.json({user: req.user.apiRepr()})
-);
-
+/*
 app.get('/logout', function(req, res){
   //passport.authenticate('basic', {session: false}),
-  //(req, res) => {
+  (req, res) => {
   req.logout();
+  req.session.destroy({_id: req.user._id});
+  console.log(_id);
+  res.clearCookie('cookiename');
   res.redirect('/');
-})
+}
+});
 
+
+req.session.destroy(function() {
+  res.clearCookie('cookieName');
+  res.redirect('/');
+  });
+*/
 
 module.exports = {User};

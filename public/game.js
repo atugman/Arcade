@@ -82,7 +82,7 @@ function touchUpHandler(e) {
 
 function drawScore() {
   ctx.font = "16px Arial";
-  ctx.fillStyle = "#0095DD";
+  ctx.fillStyle = "#18BC9C";
   ctx.fillText("Score: "+score, 8, 20);
 }
 
@@ -97,7 +97,7 @@ function drawBall(ballRadius , color , xa,ya) {
 function drawPaddle() {
   ctx.beginPath();
   ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
-  ctx.fillStyle = 'orange';
+  ctx.fillStyle = 'white';
   ctx.fill();
   ctx.closePath();
 }
@@ -105,7 +105,7 @@ function drawPaddle() {
 function drawBrick() {
   ctx.beginPath();
   ctx.rect(brickX, canvas.height-brickHeight, brickWidth, brickHeight);
-  ctx.fillStyle = 'black';
+  ctx.fillStyle = 'blue';
   ctx.fill();
   ctx.closePath();
 }
@@ -120,13 +120,6 @@ function collisionDetection() {
     score++;
   }
 }
-
-
-window.onload = function() {
-       //when the document is finished loading, replace everything
-       //between the <a ...> </a> tags with the value of splitText
-   document.getElementById("myLink").innerHTML=score;
-} 
 
 
 function gameOver(){
@@ -148,7 +141,7 @@ function gameOver(){
 //req.session check on this
 //set username to whatever logged in user is, via req.session
 //send user id back to client, then send that back
-  alert("GAME OVER");
+  alert("GAME OVER! Your score was " + score);
   document.location.reload();
 }
 /*
@@ -197,9 +190,9 @@ CANVAS
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawBall(ballRadius , 'blue', x, y);
-  drawBall(ballRadius, 'green', xb, yb);
-  drawBall(ballRadius, 'red', xz, yz);
+  drawBall(ballRadius , '#18BC9C', x, y);
+  drawBall(ballRadius, '#18BC9C', xb, yb);
+  drawBall(ballRadius, '#18BC9C', xz, yz);
   //drawBall(ballRadius, 'aqua', xa, yz);
   drawPaddle();
   drawBrick();
@@ -307,7 +300,6 @@ $(document).ready(function(){
                 });
                 var html = "<tr><td class='table-data-score'>" + data[i].score + "</td><td class='table-data-name'>" + data[i].username + '</td></tr>';
                 $('.scores-table').append(html);
-                //$('high-scores-form').reload().on('submit')
                 //console.log(response);
             }
           }
@@ -418,7 +410,9 @@ $('.login-form').on('submit', function(event) {
         type: "GET",
         data : user,
         success: function(response) {
-            var html = "<p>Logged in as " + username + "</p>";
+            var html = "<p>Logged in as " + response.user.username + "</p>";
+            console.log(user);
+            console.log(username);
             $('.random').append(html);
     }
 
@@ -437,7 +431,7 @@ $('.save-score-button').on('submit', function(event) {
 })
 
 
-/*
+
 $('.logout-button').on('click', function(event) {
   event.preventDefault()
 
@@ -445,7 +439,7 @@ $('.logout-button').on('click', function(event) {
         url : "http://localhost:8080/logout/", // heroku url
         type: "GET",
         success: function(response) {
+          console.log(response);
   }
 })
 })
-*/
