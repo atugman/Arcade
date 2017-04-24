@@ -123,13 +123,10 @@ passport.deserializeUser(function (user, done) {
     });
 });
 
-
 app.get('/existing',
   passport.authenticate('basic', {session: false}),
   (req, res) => res.json({user: req.user.apiRepr()})
 );
-//test here
-//user object
 
 app.patch('/users/:score', //wildcard
   passport.authenticate('basic', {session: false}),
@@ -160,15 +157,6 @@ app.patch('/users/:score',
 });
 */
 //Model.findByIdAndUpdate(id, updateObj, {new: true}, function(err, model) {...
-
-
-//existing user endpoint
-//send back user
-// res.json req.session.user.id
-// get request for scores, find scores based on ID
-// ^similar to high scores get request
-
-// access user ID req.session
 
 app.post('/users', (req, res) => {
   if (!req.body) {
