@@ -249,7 +249,7 @@ setInterval(draw, 10);
 
 
 // AJAX
-
+// get and display high scores
 $(document).ready(function(){
   var data = {
     name: name,
@@ -261,30 +261,24 @@ $(document).ready(function(){
             data : data,
             success: function(data) {
               for(var i=0; i<data.length; i++) {
-                data.sort(function(a, b) {
-                  return parseFloat(a.score) - parseFloat(b.score);
-                });
-                var html = "<tr><td class='table-data-score'>" + data[i].score + "</td><td class='table-data-name'>" + data[i].username + '</td></tr>';
+                if (data[i].score !== undefined) {
+                  //data = data.sort(function (a, b) {  return b - a;  });
+                  data.sort(function(a, b) {
+                    return (parseFloat(a.score) - parseFloat(b.score));
+                  });
+                var html = "<tr><td class='table-data-score'>" + data[i].score + " </td><td class='table-data-name'>" + data[i].username + '</td></tr>';
                 $('.scores-table').append(html);
             }
+          }
           }
         })
 });
 
-
-//render function
-//passing data from get ajax request
-//loop then return li
-//game over/post/save score
-//return all scores in the post reqest
-//save then find the scores
-//then client = call function and pass it the data, loop over and update ui
-
-//get request when app scores
-//game over function, post request - save score
-//server = save score - scores.find instead req.score
-
-//add score to database
+//hides logout button on page load - this is overwritten
+//in various functions below
+$(document).ready(function() {
+  $('.logout-button').hide();
+})
 
 //add new user
 $('.new-user-form').on('submit', function(event) {
@@ -309,10 +303,11 @@ $('.new-user-form').on('submit', function(event) {
         data : user,
         success: function(response) {
           event.preventDefault()
-          var html = "<p>User successfully created. Please log in under 'existing users.'</p>";
+          var html = "<p>" + username + " successfully created. Please log in under 'existing users.'</p>";
           $('.random').append(html);
-      }
-    })
+          $('.new-user-form').hide();
+        }
+      })
     });
 
 
@@ -338,6 +333,9 @@ $('.login-form').on('submit', function(event) {
             console.log(user);
             console.log(username);
             $('.random').append(html);
+            $('.new-user-form').hide();
+            $('.login-form').hide();
+            $('.logout-button').show();
     }
 
 })
@@ -351,8 +349,10 @@ $(document).ready(function(response) {
       success: function(response) {
           var username = response.user.username
           var html = "<p>Logged in as " + username + "</p>";
-          console.log(username);
           $('.random').append(html);
+          $('.logout-button').show();
+          //$('.new-user-form').hide();
+          //$('.login-form').hide();
   }
 })
 })

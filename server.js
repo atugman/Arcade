@@ -46,10 +46,11 @@ app.use(bodyParser());
 
 app.get('/scores', (req, res) => {
   User.find((err, scores) => {
- //Arcade.findById(id, 'name score', function (err, arcade) {
-  //Arcade.find({_id: id}, function (err, user) {
-
-
+    /*const sortedScores = User.users.aggregate(
+   [
+     { $sort : { score : -1 } }
+   ]
+)*/
     if(err)
       res.send(err)
     res.json(scores)
@@ -128,7 +129,7 @@ app.get('/existing',
   (req, res) => res.json({user: req.user.apiRepr()})
 );
 
-app.patch('/users/:score', //wildcard
+app.patch('/users/:score',
   passport.authenticate('basic', {session: false}),
   (req, res) => {
   const updatedItem = User.update({_id: req.user._id}, {
@@ -222,18 +223,6 @@ app.post('/users', (req, res) => {
     });
 });
 
-// never expose all your users like below in a prod application
-// we're just doing this so we have a quick way to see
-// if we're creating users. keep in mind, you can also
-// verify this in the Mongo shell.
-app.get('/users', (req, res) => {//added "users"
-  return User
-    .find()
-    .exec()
-    .then(users => res.json(users.map(user => user.apiRepr())))
-    .catch(err => console.log(err) && res.status(500).json({message: 'Internal server error'}));
-});
-
 //login
 app.get('/users',
   passport.authenticate('basic', {session: true}),
@@ -257,6 +246,13 @@ req.session.destroy(function() {
   res.clearCookie('cookieName');
   res.redirect('/');
   });
-*/
+
+
+app.get('/logout', function (req, res){
+  req.session.destroy(function (err) {
+    res.redirect('/'); //Inside a callback… bulletproof!
+  });
+});
 
 module.exports = {User};
+*/
