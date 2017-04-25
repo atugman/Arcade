@@ -1,7 +1,7 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
-var score = 0;
+var score = 0; // + currentUserScore.value;
 //console.log('top ', currentScore);
 var ballRadius = 10;
 
@@ -148,6 +148,16 @@ function gameOver(){
 
         }
       });
+      //alternate
+      //make currentUserScore a global - probably already is
+      //load-score ajax call will overwrite that
+      //delete the ajax call above this
+      //go back to if else strategy below
+      //if currenthighscore < score, update score
+      //(if) else, currentuserscore > score, update score
+      //else, set currentScore=0 from client? instead of server
+      //which it is currently
+      //or set global score = 0 + currentUserScore.value;
 
         $.ajax({
             url : "http://localhost:8080/existing", // heroku url
@@ -466,6 +476,7 @@ console.log('hi there');
       data : data,
       success: function(response) {
         //console.log('hello ', response);
+        
         var loadScore = response.currentScore
         //console.log('score before ', loadScore)
         var score = loadScore
@@ -476,6 +487,7 @@ console.log('hi there');
         //callback/ajax that simply sets score = currentScore (on page load)
         //this should allow the global to be overwritten with that value
         //on page load AFTER someone clicks the "load" button
+        document.location.reload();
 
   }
 })
