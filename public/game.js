@@ -2,6 +2,7 @@ var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
 var score = 0;
+//console.log('top ', currentScore);
 var ballRadius = 10;
 
 var x = canvas.width/2; //green
@@ -404,15 +405,25 @@ $('.save-score-button').on('submit', function(event) {
         type: "PATCH",
         data : data,
         success: function(response) {
-          var currentScore = response.currentScore
-          var html = "<p>Your current saved score is: " + currentScore + "</p>";
+          var savedScore = response.currentScore
+          var highScore = response.score
+          var html = "<p>Your current saved score is " + savedScore + ". This will be added to the leaderboards, and you can continue playing from that score by clicking load!</p>";
           $('.random').append(html);
+          if (savedScore > highScore) {
+                  $.ajax({
+                    url : "http://localhost:8080/users/" + score, // heroku url
+                    type: "PATCH",
+                    data : data,
+                    success: function(response) {
         }
       });
-    });
+    };
+  }
+});
+});
       
-
 // this will allow a user to resume a session with the score they saved it at
+
 $(document).ready(function(event) {
 console.log('hi there');
       var data = {
@@ -427,20 +438,25 @@ console.log('hi there');
       data : data,
       success: function(response) {
         console.log('hello ', response);
-        var currentScore = response.currentScore
-        var score = currentScore
-        var html = "<p>Successfully loaded score: " + currentScore + ". Good Luck!</p>";
+        var loadScore = response.currentScore
+        console.log('score before ', score)
+        var score = loadScore
+        console.log('score ', score)
+        var html = "<p>Successfully loaded score: " + loadScore + ". Good Luck!</p>";
         $('.random').append(html);
+        //try doing a document.ready ajax call to loadScore within this 
+        //callback/ajax that simply sets score = currentScore (on page load)
+        //this should allow the global to be overwritten with that value
+        //on page load AFTER someone clicks the "load" button
 
   }
 })
 })
 
-
-//logout functionality
+console.log('outside function ', score)
+//logout
 
 $('.logout-button').on('click', function(event) {
-  event.preventDefault()
   $.ajax({
         url : "http://localhost:8080/logout/", // heroku url
         type: "GET",
