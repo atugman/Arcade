@@ -375,7 +375,7 @@ $('.login-form').on('submit', function(event) {
 })
 
 //this will show who is logged in on page load
-/*
+
 $(document).ready(function(response) {
     $.ajax({
       url : "http://localhost:8080/existing", // heroku url
@@ -386,11 +386,11 @@ $(document).ready(function(response) {
           var html = "<p>Logged in as " + username + "</p>";
           $('.random').append(html);
           $('.logout-button').show();
-          //$('.new-user-form').hide();
-          //$('.login-form').hide();
+          $('.new-user-form').hide();
+          $('.login-form').hide();
   }
 })
-})*/
+})
 
 //can save score without losing progress, or it will save on gameOver
 $('.save-score-button').on('submit', function(event) {
