@@ -109,6 +109,20 @@ app.patch('/users/:score',
     res.json(updatedItem)
   })
 });
+
+app.patch('/currentScore/:score',
+  passport.authenticate('basic', {session: false}),
+  (req, res) => {
+    //console.log(req.user);
+    User.findByIdAndUpdate(req.user._id, {currentScore: req.params.score}, {new: true},
+  (err, updatedItem) => {
+    if (err) {
+      res.json(err)
+    } 
+    res.json(updatedItem)
+  })
+});
+
 /*
 app.get('/current-score',
   passport.authenticate('basic', {session: false}),

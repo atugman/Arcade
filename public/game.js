@@ -394,8 +394,29 @@ $(document).ready(function(response) {
 
 //can save score without losing progress, or it will save on gameOver
 $('.save-score-button').on('submit', function(event) {
+  event.preventDefault();
+
+
+    var data = {
+    name: name,
+    score: score
+}
+
+      $.ajax({
+        url : "http://localhost:8080/currentScore/" + score, // heroku url
+        type: "PATCH",
+        data : data,
+        success: function(response) {
+          //append something saying that they saved their score
+          //but insert score from server response
+        }
+      });
+    });
+
+/*
+$('.save-score-button').on('submit', function(event) {
   event.preventDefault()
-  //get username and password into this request
+
   
     var data = {
     name: name,
@@ -431,6 +452,8 @@ $('.save-score-button').on('submit', function(event) {
               }
             })
           })
+          */
+
       
 
 /* this will allow a user to resume a session with the score they saved it at
@@ -448,7 +471,7 @@ $('.load-score-button').on('submit', function(response) {
 
 
 //logout functionality
-
+/*
 $('.logout-button').on('click', function(event) {
   event.preventDefault()
   $.ajax({
@@ -457,7 +480,7 @@ $('.logout-button').on('click', function(event) {
         success: function(response) {
   }
 })
-})
-
+});
+*/
 //window.location=index.html
 //
