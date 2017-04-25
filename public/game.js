@@ -360,7 +360,6 @@ $('.login-form').on('submit', function(event) {
         type: "GET",
         data : user,
         success: function(response) {
-          console.log("hey ", response);
             var html = "<p>Login attempt successful</p>";
             var username = response.user.username
             var html2 = "<p>Logged in as " + username + "</p>";
@@ -381,13 +380,12 @@ $(document).ready(function(response) {
       url : "http://localhost:8080/existing", // heroku url
       type: "GET",
       success: function(response) {
-        console.log('hey ', response);
           var username = response.user.username
           var html = "<p>Logged in as " + username + "</p>";
           $('.random').append(html);
           $('.logout-button').show();
           $('.new-user-form').hide();
-          $('.login-form').hide();
+          //$('.login-form').hide();
   }
 })
 })
@@ -395,7 +393,6 @@ $(document).ready(function(response) {
 //can save score without losing progress, or it will save on gameOver
 $('.save-score-button').on('submit', function(event) {
   event.preventDefault();
-
 
     var data = {
     name: name,
@@ -407,67 +404,37 @@ $('.save-score-button').on('submit', function(event) {
         type: "PATCH",
         data : data,
         success: function(response) {
-          //append something saying that they saved their score
-          //but insert score from server response
+          var currentScore = response.currentScore
+          var html = "<p>Your current saved score is: " + currentScore + "</p>";
+          $('.random').append(html);
         }
       });
     });
-
-/*
-$('.save-score-button').on('submit', function(event) {
-  event.preventDefault()
-
-  
-    var data = {
-    name: name,
-    score: score
-}
-
-
-        $.ajax({
-            url : "http://localhost:8080/existing", // heroku url
-            type: "GET",
-            data : data,
-            success: function(data) {
-              console.log('data.user.score: ',data.user.score); //gets here
-              //for(var i=0; i<data.length; i++) {
-                  var currentUserScore = data.user.score;
-                  //console.log(data);
-                  console.log('score: ', score);
-                  console.log('currentUserScore: ', currentUserScore);
-                if (currentUserScore < score) {
-                  $.ajax({
-                    url : "http://localhost:8080/users/" + score, // heroku url
-                    type: "PATCH",
-                    data : data,
-                    success: function(response) {
-                      //console.log('patch working');
-                      //for(var i=0; i<data.length; i++) {
-                      //var html = "<tr><td class='table-data-score'>" + data[i].score + " </td><td class='table-data-name'>" + data[i].username + '</td></tr>';
-                      //$('.scores-table').append(html);
-                    //}
-                    }
-                  })
-                }
-              }
-            })
-          })
-          */
-
       
 
-/* this will allow a user to resume a session with the score they saved it at
-$('.load-score-button').on('submit', function(response) {
+// this will allow a user to resume a session with the score they saved it at
+$(document).ready(function(event) {
+console.log('hi there');
+      var data = {
+        name: name,
+        //currentScore: currentScore,
+        score: score
+    }
+
     $.ajax({
-      url : "http://localhost:8080/scores", // heroku url
+      url : "http://localhost:8080/loadScore", // heroku url
       type: "GET",
+      data : data,
       success: function(response) {
-          var score = response.session.score
-          console.log(score);
+        console.log('hello ', response);
+        var currentScore = response.currentScore
+        var score = currentScore
+        var html = "<p>Successfully loaded score: " + currentScore + ". Good Luck!</p>";
+        $('.random').append(html);
+
   }
 })
 })
-*/
 
 
 //logout functionality

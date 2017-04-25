@@ -45,7 +45,6 @@ app.get('/scores', (req, res) => {
   User.find({}, null, {sort: '-score'}, function(err, scores) {
     if(err)
       return res.send(err)
-        console.log('hey ', scores);
     res.json(scores)
   })
 })
@@ -122,6 +121,19 @@ app.patch('/currentScore/:score',
     res.json(updatedItem)
   })
 });
+
+app.get('/loadScore',
+  passport.authenticate('basic', {session: false}),
+  (req, res) => {
+    User.findById(req.user._id,
+      (err, item) => {
+        if (err) {
+          res.json(err)
+        }
+        res.json(item)
+        })
+    })
+    
 
 /*
 app.get('/current-score',
