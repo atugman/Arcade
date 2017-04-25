@@ -34,7 +34,7 @@ app.listen(process.env.PORT || 8080, function(){
 //passport.use(basicStrategy);
 
 app.use(express.static('public'));
-app.use(cookieParser());
+//app.use(cookieParser());
 app.use(bodyParser());
 //app.use(passport.initialize());
 //app.use(session());
@@ -257,9 +257,13 @@ req.session.destroy(function() {
 
 */
 app.get('/logout', function (req, res){
+  console.log(req.session);
+  console.log(req.sessionID);
   req.session.destroy(function (err) {
-    req.logOut();
-    res.redirect('/');
+  console.log(req.session);
+  console.log(req.sessionID);
+    //req.logOut();
+    res.redirect('/existing');
   });
 });
 

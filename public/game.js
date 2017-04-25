@@ -438,16 +438,16 @@ console.log('hi there');
 
 
 //logout functionality
-/*
+
 $('.logout-button').on('click', function(event) {
   event.preventDefault()
   $.ajax({
         url : "http://localhost:8080/logout/", // heroku url
         type: "GET",
         success: function(response) {
+          window.location="index.html"
   }
 })
 });
-*/
+
 //window.location=index.html
-//
