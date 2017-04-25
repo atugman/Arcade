@@ -123,12 +123,35 @@ function collisionDetection() {
 
 
 function gameOver(){
-  $.ajax({
-        url : "http://localhost:8080/users/" + score, // heroku url
-        type: "PATCH",
-        success: function(response) {
-    }
-  })
+    var data = {
+    name: name,
+    score: score
+  }
+        $.ajax({
+            url : "http://localhost:8080/current-score", // heroku url
+            type: "GET",
+            data : data,
+            success: function(data) {
+              for(var i=0; i<data.length; i++) {
+                if (data[i].score < score) {
+                  console.log('GET score: ', score);
+                  console.log('GET data[i].score: ', data[i].score);
+                  $.ajax({
+                    url : "http://localhost:8080/users/" + score, // heroku url
+                    type: "PATCH",
+                    data : data,
+                    success: function(response) {
+                      console.log('patch working');
+                      //for(var i=0; i<data.length; i++) {
+                      //var html = "<tr><td class='table-data-score'>" + data[i].score + " </td><td class='table-data-name'>" + data[i].username + '</td></tr>';
+                      //$('.scores-table').append(html);
+                    //}
+                    }
+                  })
+                }
+              }
+            }
+          })
 
   var msg = {
     "messageType": "SCORE",
@@ -139,6 +162,7 @@ function gameOver(){
   alert("GAME OVER! Your score was " + score);
   document.location.reload();
 }
+
 
 var message =  {
   messageType: "SETTING",
@@ -246,7 +270,7 @@ else if(ya + aquaY > (canvas.height-ballRadius)) {
 }
 setInterval(draw, 10);
 
-
+var currentUserScore = 0
 
 // AJAX
 // get and display high scores
@@ -262,17 +286,18 @@ $(document).ready(function(){
             success: function(data) {
               for(var i=0; i<data.length; i++) {
                 if (data[i].score !== undefined) {
-                  //data = data.sort(function (a, b) {  return b - a;  });
-                  data.sort(function(a, b) {
-                    return (parseFloat(a.score) - parseFloat(b.score));
-                  });
                 var html = "<tr><td class='table-data-score'>" + data[i].score + " </td><td class='table-data-name'>" + data[i].username + '</td></tr>';
                 $('.scores-table').append(html);
+                var currentUserScore = data[i].score;
+                console.log('hello ', currentUserScore);
             }
           }
           }
         })
 });
+
+console.log('hey ', currentUserScore);
+
 
 //hides logout button on page load - this is overwritten
 //in various functions below
@@ -329,10 +354,12 @@ $('.login-form').on('submit', function(event) {
         type: "GET",
         data : user,
         success: function(response) {
+          console.log("hey ", response);
             var html = "<p>Login attempt successful</p>";
-            console.log(user);
-            console.log(username);
+            var username = response.user.username
+            var html2 = "<p>Logged in as " + username + "</p>";
             $('.random').append(html);
+            $('.random').append(html2);
             $('.new-user-form').hide();
             $('.login-form').hide();
             $('.logout-button').show();
@@ -342,11 +369,13 @@ $('.login-form').on('submit', function(event) {
 })
 
 //this will show who is logged in on page load
+/*
 $(document).ready(function(response) {
     $.ajax({
       url : "http://localhost:8080/existing", // heroku url
       type: "GET",
       success: function(response) {
+        console.log('hey ', response);
           var username = response.user.username
           var html = "<p>Logged in as " + username + "</p>";
           $('.random').append(html);
@@ -355,19 +384,42 @@ $(document).ready(function(response) {
           //$('.login-form').hide();
   }
 })
-})
+})*/
 
 //can save score without losing progress, or it will save on gameOver
-$('.save-score-button').on('submit', function(event) {
+$('.save-score-button').on('submit', function(req) {
   event.preventDefault()
+  //get username and password into this request
+  
 
-  $.ajax({
-        url : "http://localhost:8080/users/" + score, // heroku url
-        type: "PATCH",
-        success: function(response) {
-    }
-  })
-})
+        $.ajax({
+            url : "http://localhost:8080/existing", // heroku url
+            type: "GET",
+            data : data,
+            success: function(data) {
+              for(var i=0; i<data.length; i++) {
+                console.log(data);
+                  console.log('GET score: ', score);
+                  console.log('GET data[i].score: ', data[i].score);
+
+                if (data[i].score < score) {
+                  $.ajax({
+                    url : "http://localhost:8080/users/" + score, // heroku url
+                    type: "PATCH",
+                    data : data,
+                    success: function(response) {
+                      console.log('patch working');
+                      //for(var i=0; i<data.length; i++) {
+                      //var html = "<tr><td class='table-data-score'>" + data[i].score + " </td><td class='table-data-name'>" + data[i].username + '</td></tr>';
+                      //$('.scores-table').append(html);
+                    //}
+                    }
+                  })
+                }
+              }
+            }
+          })
+      })
 
 /* this will allow a user to resume a session with the score they saved it at
 $('.load-score-button').on('submit', function(response) {
@@ -382,16 +434,18 @@ $('.load-score-button').on('submit', function(response) {
 })
 */
 
-/* logout functionality
+
+//logout functionality
+
 $('.logout-button').on('click', function(event) {
   event.preventDefault()
-
   $.ajax({
         url : "http://localhost:8080/logout/", // heroku url
         type: "GET",
         success: function(response) {
-          console.log(response);
   }
 })
 })
-*/
+
+//window.location=index.html
+//

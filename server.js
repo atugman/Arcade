@@ -41,9 +41,6 @@ app.use(bodyParser());
 
 
 
-
-
-
 app.get('/scores', (req, res) => {
   User.find({}, null, {sort: '-score'}, function(err, scores) {
     if(err)
@@ -53,17 +50,6 @@ app.get('/scores', (req, res) => {
   })
 })
 
-//Article.find({}, null, {sort: '-date'}, function(err, docs) { ... });
-
-/*
-app.get('/scores', (req, res) => {
-  User.find((err, scores) => {
-    if(err)
-      res.send(err)
-    res.json(scores)
-  })
-})
-*/
 //AUTH
 
 const basicStrategy = new BasicStrategy((username, password, callback) => {
@@ -114,7 +100,7 @@ app.get('/existing',
 app.patch('/users/:score',
   passport.authenticate('basic', {session: false}),
   (req, res) => {
-    console.log(req.user);
+    //console.log(req.user);
     User.findByIdAndUpdate(req.user._id, {score: req.params.score}, {new: true},
   (err, updatedItem) => {
     if (err) {
@@ -123,7 +109,19 @@ app.patch('/users/:score',
     res.json(updatedItem)
   })
 });
-
+/*
+app.get('/current-score',
+  passport.authenticate('basic', {session: false}),
+  (req, res) => {
+    User.findById({user: req.user.apiRepr()},
+      (err, user) => {
+        if (err) {
+          res.json(err)
+        }
+        res.json(user)
+        })
+      });
+      */
 /*
 app.patch('/users/:score',
   passport.authenticate('basic', {session: false}),
@@ -234,8 +232,14 @@ req.session.destroy(function() {
 */
 app.get('/logout', function (req, res){
   req.session.destroy(function (err) {
-    res.redirect('/'); //do this on client sideInside a callback… bulletproof!
+    req.logOut();
+    res.redirect('/');
   });
 });
+
+//app.get('/logout', function (req, res){
+  //req.logOut()  // <-- not req.logout();
+  //res.redirect('/')
+//});
 
 module.exports = {User};
