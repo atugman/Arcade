@@ -123,8 +123,8 @@ function collisionDetection() {
       //score = loadScore + score;
       //score++;
     //} else {
-      score++;
     }
+    score++;
   }
 }
 
@@ -135,8 +135,19 @@ function gameOver(){
     var data = {
     name: name,
     score: score,
-}
+}     //makes sure current score erases on gameOver
+      //wait until after load score function is fixed, so that
+      //we know where the variable will be stored, and so we don't
+      //erase their score before it uploads (if they started
+      //on a loaded score)
+      $.ajax({
+        url : "http://localhost:8080/eraseCurrentScore", // heroku url
+        type: "PATCH",
+        data : data,
+        success: function(response) {
 
+        }
+      });
 
         $.ajax({
             url : "http://localhost:8080/existing", // heroku url
@@ -145,11 +156,11 @@ function gameOver(){
             success: function(data) {
               console.log('data.user.score: ',data.user.score); //gets here
               //for(var i=0; i<data.length; i++) {
-                  var currentUserScore = data.user.score;
+                  var currentHighScore = data.user.score;
                   //console.log(data);
                   console.log('score: ', score);
-                  console.log('currentUserScore: ', currentUserScore);
-                if (currentUserScore < score) {
+                  console.log('currentHighScore: ', currentHighScore);
+                if (currentHighScore < score) {
                   $.ajax({
                     url : "http://localhost:8080/users/" + score, // heroku url
                     type: "PATCH",
@@ -167,8 +178,8 @@ function gameOver(){
                   })
                 }
                 }
-              }
-            })
+              })
+            
 
   var msg = {
     "messageType": "SCORE",
@@ -434,7 +445,13 @@ $('.save-score-button').on('submit', function(event) {
 
 var loadScore = 0;
 // this will allow a user to resume a session with the score they saved it at
-// add alert - warn them that they will lose current progress
+// add alert - warn them that they will lose current progress.
+
+// Ideally this function below will overwrite global variable score.
+// that will ensure gameOver works properly in terms of erasing
+// the 'currentScore' from the db, and then updates the 'score'
+// property (high score) with the actual score and not 0.
+
 $('.load-button').on('click', function(event) {
 console.log('hi there');
       var data = {
