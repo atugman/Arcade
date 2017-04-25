@@ -288,15 +288,15 @@ $(document).ready(function(){
                 if (data[i].score !== undefined) {
                 var html = "<tr><td class='table-data-score'>" + data[i].score + " </td><td class='table-data-name'>" + data[i].username + '</td></tr>';
                 $('.scores-table').append(html);
-                var currentUserScore = data[i].score;
-                console.log('hello ', currentUserScore);
+                //var currentUserScore = data[i].score;
+                //console.log('hello ', currentUserScore);
             }
           }
           }
         })
 });
 
-console.log('hey ', currentUserScore);
+//console.log('hey ', currentUserScore);
 
 
 //hides logout button on page load - this is overwritten
@@ -387,28 +387,34 @@ $(document).ready(function(response) {
 })*/
 
 //can save score without losing progress, or it will save on gameOver
-$('.save-score-button').on('submit', function(req) {
+$('.save-score-button').on('submit', function(event) {
   event.preventDefault()
   //get username and password into this request
   
+    var data = {
+    name: name,
+    score: score
+}
+
 
         $.ajax({
             url : "http://localhost:8080/existing", // heroku url
             type: "GET",
             data : data,
             success: function(data) {
-              for(var i=0; i<data.length; i++) {
-                console.log(data);
-                  console.log('GET score: ', score);
-                  console.log('GET data[i].score: ', data[i].score);
-
-                if (data[i].score < score) {
+              console.log('data.user.score: ',data.user.score); //gets here
+              //for(var i=0; i<data.length; i++) {
+                  var currentUserScore = data.user.score;
+                  //console.log(data);
+                  console.log('score: ', score);
+                  console.log('currentUserScore: ', currentUserScore);
+                if (currentUserScore < score) {
                   $.ajax({
                     url : "http://localhost:8080/users/" + score, // heroku url
                     type: "PATCH",
                     data : data,
                     success: function(response) {
-                      console.log('patch working');
+                      //console.log('patch working');
                       //for(var i=0; i<data.length; i++) {
                       //var html = "<tr><td class='table-data-score'>" + data[i].score + " </td><td class='table-data-name'>" + data[i].username + '</td></tr>';
                       //$('.scores-table').append(html);
@@ -417,9 +423,9 @@ $('.save-score-button').on('submit', function(req) {
                   })
                 }
               }
-            }
+            })
           })
-      })
+      
 
 /* this will allow a user to resume a session with the score they saved it at
 $('.load-score-button').on('submit', function(response) {
