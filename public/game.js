@@ -117,8 +117,14 @@ function collisionDetection() {
       brickX= (canvas.width-brickWidth)/480;
     } else {
       brickX= (canvas.width-brickWidth);
+    //}
+    //if (currentUserScore === Number) {
+      //console.log('currentUserScore within if statement: ', loadScore)
+      //score = loadScore + score;
+      //score++;
+    //} else {
+      score++;
     }
-    score++;
   }
 }
 
@@ -128,7 +134,7 @@ function gameOver(){
   
     var data = {
     name: name,
-    score: score
+    score: score,
 }
 
 
@@ -149,6 +155,9 @@ function gameOver(){
                     type: "PATCH",
                     data : data,
                     success: function(response) {
+                      //add another patch request to erase the value of
+                      //currentScore in the database when the game ends AND
+
                       //console.log('patch working');
                       //for(var i=0; i<data.length; i++) {
                       //var html = "<tr><td class='table-data-score'>" + data[i].score + " </td><td class='table-data-name'>" + data[i].username + '</td></tr>';
@@ -156,6 +165,7 @@ function gameOver(){
                     //}
                     }
                   })
+                }
                 }
               }
             })
@@ -421,10 +431,11 @@ $('.save-score-button').on('submit', function(event) {
   }
 });
 });
-      
-// this will allow a user to resume a session with the score they saved it at
 
-$(document).ready(function(event) {
+var loadScore = 0;
+// this will allow a user to resume a session with the score they saved it at
+// add alert - warn them that they will lose current progress
+$('.load-button').on('click', function(event) {
 console.log('hi there');
       var data = {
         name: name,
@@ -437,11 +448,11 @@ console.log('hi there');
       type: "GET",
       data : data,
       success: function(response) {
-        console.log('hello ', response);
+        //console.log('hello ', response);
         var loadScore = response.currentScore
-        console.log('score before ', score)
+        //console.log('score before ', loadScore)
         var score = loadScore
-        console.log('score ', score)
+        //console.log('score inside function: ', score)
         var html = "<p>Successfully loaded score: " + loadScore + ". Good Luck!</p>";
         $('.random').append(html);
         //try doing a document.ready ajax call to loadScore within this 
@@ -453,7 +464,7 @@ console.log('hi there');
 })
 })
 
-console.log('outside function ', score)
+console.log('outside of function ', loadScore)
 //logout
 
 $('.logout-button').on('click', function(event) {
