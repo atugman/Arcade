@@ -123,25 +123,32 @@ function collisionDetection() {
 
 
 function gameOver(){
+  //get username and password into this request
+  
     var data = {
     name: name,
     score: score
-  }
+}
+
+
         $.ajax({
-            url : "http://localhost:8080/current-score", // heroku url
+            url : "http://localhost:8080/existing", // heroku url
             type: "GET",
             data : data,
             success: function(data) {
-              for(var i=0; i<data.length; i++) {
-                if (data[i].score < score) {
-                  console.log('GET score: ', score);
-                  console.log('GET data[i].score: ', data[i].score);
+              console.log('data.user.score: ',data.user.score); //gets here
+              //for(var i=0; i<data.length; i++) {
+                  var currentUserScore = data.user.score;
+                  //console.log(data);
+                  console.log('score: ', score);
+                  console.log('currentUserScore: ', currentUserScore);
+                if (currentUserScore < score) {
                   $.ajax({
                     url : "http://localhost:8080/users/" + score, // heroku url
                     type: "PATCH",
                     data : data,
                     success: function(response) {
-                      console.log('patch working');
+                      //console.log('patch working');
                       //for(var i=0; i<data.length; i++) {
                       //var html = "<tr><td class='table-data-score'>" + data[i].score + " </td><td class='table-data-name'>" + data[i].username + '</td></tr>';
                       //$('.scores-table').append(html);
@@ -150,8 +157,7 @@ function gameOver(){
                   })
                 }
               }
-            }
-          })
+            })
 
   var msg = {
     "messageType": "SCORE",
