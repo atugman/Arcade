@@ -7,6 +7,8 @@ const app = server.app;
 const storage = server.storage;
 //const describe = require('chai');
 const expect = require('chai').expect;
+const passport = require('passport');
+const {BasicStrategy} = require('passport-http');
 
 chai.use(chaiHttp);
 
