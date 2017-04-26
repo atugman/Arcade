@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const serveStatic = require('serve-static');
 const cookieParser = require('cookie-parser');
+const expect = require('chai').expect;
 
 const {BasicStrategy} = require('passport-http');
 
@@ -13,7 +14,6 @@ const passport = require('passport');
 
 const mongoose = require('mongoose');
 
-const Arcade = require('./models/arcade')
 const {User} = require('./models/users')
 
 mongoose.connect('mongodb://atugman:unc123@ds157529.mlab.com:57529/arcade')
@@ -38,8 +38,15 @@ app.use(express.static('public'));
 app.use(bodyParser());
 //app.use(passport.initialize());
 //app.use(session());
-
-
+/*
+app.get('/', (req, res) => {
+  User.find(function(err, scores) {
+    if(err)
+      return res.send(err)
+    res.json(scores)
+  })
+})
+*/
 
 app.get('/scores', (req, res) => {
   User.find({}, null, {sort: '-score'}, function(err, scores) {
@@ -286,3 +293,4 @@ app.get('/logout', function (req, res){
 //});
 
 module.exports = {User};
+module.exports = {app};
