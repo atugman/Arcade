@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Andrew's Arcade</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="/css/freelancer.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+
+
+    <meta charset="utf-8" />
+
+
+
+    <title>Arcade</title>
+
+    <!-- Bootstrap Material Design
+    <link rel="stylesheet" type="text/css" href="..Documents/Projects/node-projects/node-capstone/node_modules/bootstrap/dist/css/bootstrap-material-design.css">
+    <link rel="stylesheet" type="text/css" href="..Documents/Projects/node-projects/node-capstone/node_modules/bootstrap-material-design/dist/css/ripples.min.css">
+-->
+    <!-- Bootstrap
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.iife.js">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.iife.js.map">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.iife.min.js">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.umd.js">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.umd.js.map">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.umd.min.js">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.umd.min.js.map">
+-->
+    <link rel="stylesheet" type="text/css" href="main.css">
+
+
+    <style>
+    	* { padding: 0; margin: 0; }
+    	canvas { background: black; display: block; margin: 0 auto; }
+    </style>
+
+
+    	<!-- Material Design fonts -->
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
+
+
+</head>
+<body id="page-top" class="index">
+
+
+
+<div id="skipnav"><a href="#maincontent">Skip to main content</a></div>
+
+    <!-- Navigation -->
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="#page-top">Andrew's Arcade</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <!--
+                    <li class="page-scroll">
+                        <a href="#portfolio">Portfolio</a>
+                    </li>
+                    -->
+                    <li class="page-scroll">
+                        <a href="#about">About</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <header>
+        <div class="container" id="maincontent" tabindex="-1">
+            <div class="row">
+
+                <!--login/other games column-->
+                <div class="other-games-column col-lg-3">
+                    <form class="new-user-form">
+                        NEW USERS<br>
+                        Username:<br>
+                        <strong><input class="input" type="text" name="Username"><br></strong>
+                        Password<br>
+                        <strong><input class="input" type="Password" name="Password"><br></strong>
+                        First Name<br>
+                        <strong><input class="input" type="text" name="firstname"><br></strong>
+                        Last Name<br>
+                        <strong><input class="input" type="text" name="lastname"><br></strong>
+                        <button>Submit</button>
+                    </form>
+                    <form class="login-form">
+                        EXISTING USERS<br>
+                        Username:<br>
+                        <strong><input class="input" type="text" name="Username"><br></strong>
+                        Password<br>
+                        <strong><input class="input" type="Password" name="Password"><br></strong>
+                        <button>Login</button>
+                    </form>
+
+                    <div class="random">
+                    </div>
+
+                    <button class="logout-button">Logout</button>
+
+                    <!--
+                    <button class="card btn btn-flat btn-warning">Check out these other cool games!</button>
+                        <div class="card-content">
+                            <p>like this one</p>
+                            <p>and this one</p>
+                            <p>and this one too</p>
+                        </div>
+                    -->
+                </div>
+                    
+                <!--main game column-->
+                <div class="main-game-column col-lg-6">
+                    <canvas id="myCanvas" width="480" height="320"></canvas>
+                    <div><p>Move the paddle to the brick across the screen using your arrow keys without getting touched by the moving balls!</p></div>
+
+                    <div>
+                    <form class='save-score-button'>
+                        <button>Save</button>
+                    </form>
+                    </div>
+                    <div>
+                    <form class='load-score-button'>
+                        <button>Load</button>
+                    </form>
+                    </div>
+                    
+                </div>
+
+                <!--high scores column-->
+                <div class="high-scores-column col-lg-3">
+                        <table class="table">
+                            <th class="scores-table">High Scores</th>
+                        </table>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+
+	<!-- jQuery -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<!-- JS local files -->
+	<script type="text/javascript" src="game.js"></script>
+</body>
+</html>

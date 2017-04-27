@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const serveStatic = require('serve-static');
 const cookieParser = require('cookie-parser');
-const expect = require('chai').expect;
 
 const {BasicStrategy} = require('passport-http');
 
@@ -22,8 +21,8 @@ mongoose.Promise = global.Promise;
 const {PORT, DATABASE_URL} = require('./config');
 
 app.use(morgan('common'));
+app.use(bodyParser.urlencoded({ extended: true, }));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
 
 app.use(express.static('public'));
 
@@ -82,7 +81,11 @@ const basicStrategy = new BasicStrategy((username, password, callback) => {
 });
 
 
-app.use(session({ secret: 'keyboard cat' }));
+app.use(session({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(basicStrategy);
@@ -277,14 +280,8 @@ req.session.destroy(function() {
 
 */
 app.get('/logout', function (req, res){
-  console.log(req.session);
-  console.log(req.sessionID);
-  req.session.destroy(function (err) {
-  console.log(req.session);
-  console.log(req.sessionID);
-    //req.logOut();
-    res.redirect('/existing');
-  });
+  req.session.destroy()
+  res.json({loggedOut: true})
 });
 
 //app.get('/logout', function (req, res){

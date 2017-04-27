@@ -412,6 +412,7 @@ $(document).ready(function(response) {
       url : "http://localhost:8080/existing", // heroku url
       type: "GET",
       success: function(response) {
+        console.log('response: ', response);
           var username = response.user.username
           var html = "<p>Logged in as " + username + "</p>";
           $('.random').append(html);
@@ -453,7 +454,7 @@ $('.save-score-button').on('submit', function(event) {
 });
 });
 
-var loadScore = 0;
+//var loadScore = 0;
 // this will allow a user to resume a session with the score they saved it at
 // add alert - warn them that they will lose current progress.
 
@@ -462,8 +463,8 @@ var loadScore = 0;
 // the 'currentScore' from the db, and then updates the 'score'
 // property (high score) with the actual score and not 0.
 
-$('.load-button').on('click', function(event) {
-console.log('hi there');
+$('.load-score-button').on('submit', function(event) {
+  event.preventDefault();
       var data = {
         name: name,
         //currentScore: currentScore,
@@ -475,25 +476,22 @@ console.log('hi there');
       type: "GET",
       data : data,
       success: function(response) {
-        //console.log('hello ', response);
-        
-        var loadScore = response.currentScore
+        score = response.currentScore
         //console.log('score before ', loadScore)
-        var score = loadScore
         //console.log('score inside function: ', score)
-        var html = "<p>Successfully loaded score: " + loadScore + ". Good Luck!</p>";
+        var html = "<p>Successfully loaded score: " + score + ". Good Luck!</p>";
         $('.random').append(html);
+        drawScore();
         //try doing a document.ready ajax call to loadScore within this 
         //callback/ajax that simply sets score = currentScore (on page load)
         //this should allow the global to be overwritten with that value
         //on page load AFTER someone clicks the "load" button
-        document.location.reload();
+        //document.location.reload();
 
   }
 })
 })
 
-console.log('outside of function ', loadScore)
 //logout
 
 $('.logout-button').on('click', function(event) {
@@ -501,7 +499,10 @@ $('.logout-button').on('click', function(event) {
         url : "http://localhost:8080/logout/", // heroku url
         type: "GET",
         success: function(response) {
-          window.location="index.html"
+          if (response.loggedOut) {
+            window.location="/index.html"
+            console.log('logged out');
+          }
   }
 })
 });

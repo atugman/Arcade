@@ -16,12 +16,6 @@ chai.use(chaiHttp);
 //const it = mocha.it
 const assert = require('chai').assert
 
-  describe('#indexOf()', function() {
-    it('should return -1 when not present', function() {
-      assert.equal([1,2,3].indexOf(4), -1)
-    })
-  })
-
 describe('scores page', function() {
   it('exists', function(done) {
     chai.request(app)
@@ -29,6 +23,8 @@ describe('scores page', function() {
       .end(function(err, res) {
         res.should.have.status(200);
         res.should.be.json;
+        res.body.should.be.a('array');
+        res.body.should.have.length.of.at.least(1);
         done();
     });
   });
@@ -121,110 +117,5 @@ describe('GET endpoint', function() {
         })
     });
   });
-
-/*const chai = require('chai');
-const chaiHttp = require('chai-http');
-const server = require('../server.js');
-
-const expect = require('chai').expect;
-
-const should = chai.should();
-const app = server.app;
-const storage = server.storage;
-
-const mocha = require('mocha')
-const describe = mocha.describe
-const it = mocha.it
-const assert = require('chai').assert
-
-//const {app, runServer, closeServer} = require('../server');
-
-chai.use(chaiHttp);
-
-function runServer() {
-  const port = process.env.PORT || 8080;
-  return new Promise((resolve, reject) => {
-    app.listen(port, () => {
-      console.log(`Your app is listening on port ${port}`);
-      resolve();
-    })
-    .on('error', err => {
-      reject(err);
-    });
-  });
-}
-
-function runServer() {
-  const port = process.env.PORT || 8080;
-  return new Promise((resolve, reject) => {
-    server = app.listen(port, () => {
-      console.log(`Your app is listening on port ${port}`);
-      resolve(server);
-    }).on('error', err => {
-      reject(err)
-    });
-  });
-}
-
-function closeServer() {
-  return new Promise((resolve, reject) => {
-    console.log('Closing server');
-    server.close(err => {
-      if (err) {
-        reject(err);
-        // so we don't also call `resolve()`
-        return;
-      }
-      resolve();
-    });
-  });
-}
-
-if (require.main === module) {
-  runServer().catch(err => console.error(err));
-};
-
-
-describe('Server', function() {
-    before(function() {
-    return runServer();
-  });
-
-  after(function() {
-    return closeServer();
-  });
-  it('should list scores on GET', function() {
-    return chai.request(app)
-      .get('/scores')
-      .then(function(res) {
-        res.should.have.status(200);
-        res.should.be.json;
-        //res.body.should.be.a('array');
-        //res.body.length.should.be.at.least(1);
-        // each item should be an object with key/value pairs
-        // for `id`, `name` and `checked`.
-        //const expectedKeys = ['id', 'name', 'checked'];
-        //res.body.forEach(function(item) {
-          //item.should.be.a('object');
-          //item.should.include.keys(expectedKeys);
-        //});
-      });
-  });
-});
-
-
-
-
-describe('index page', function() {
-  it('exists', function(done) {
-    chai.request(app)
-      .get('/')
-      .end(function(err, res) {
-        res.should.have.status(200);
-        done();
-    });
-  });
-});
-*/
 
 module.exports = app
