@@ -106,7 +106,7 @@ function drawPaddle() {
 function drawBrick() {
   ctx.beginPath();
   ctx.rect(brickX, canvas.height-brickHeight, brickWidth, brickHeight);
-  ctx.fillStyle = 'blue';
+  ctx.fillStyle = 'grey';
   ctx.fill();
   ctx.closePath();
 }
@@ -193,9 +193,9 @@ CANVAS
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawBall(ballRadius , '#18BC9C', x, y);
-  drawBall(ballRadius, '#18BC9C', xb, yb);
-  drawBall(ballRadius, '#18BC9C', xz, yz);
+  drawBall(ballRadius , 'red', x, y);
+  drawBall(ballRadius, 'blue', xb, yb);
+  drawBall(ballRadius, 'green', xz, yz);
   //drawBall(ballRadius, 'aqua', xa, yz);
   drawPaddle();
   drawBrick();
