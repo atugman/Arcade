@@ -34,3 +34,8 @@ button {
 .save-score-button {
 	color: #18BC9C;
 }
+
+.append-logout {
+	text-align: right;
+	color: white;
+}

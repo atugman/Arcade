@@ -312,6 +312,7 @@ var currentUserScore = 0
 
 // AJAX
 // get and display high scores
+
 $(document).ready(function(){
   var data = {
     name: name,
@@ -326,56 +327,18 @@ $(document).ready(function(){
                 if (data[i].score !== undefined) {
                 var html = "<tr><td class='table-data-score'>" + data[i].score + " </td><td class='table-data-name'>" + data[i].username + '</td></tr>';
                 $('.scores-table').append(html);
-                //var currentUserScore = data[i].score;
-                //console.log('hello ', currentUserScore);
             }
           }
           }
         })
 });
 
-//console.log('hey ', currentUserScore);
-
-
-//hides logout button on page load - this is overwritten
-//in various functions below
 $(document).ready(function() {
-  $('.logout-button').hide();
+  $('.logout-button').show();
 })
-/*moved to login.js
-//add new user
-$('.new-user-form').on('submit', function(event) {
-    event.preventDefault()
-    var username = event.target.Username.value
-    var password = event.target.Password.value
-    var firstName = event.target.firstname.value
-    var lastName = event.target.lastname.value
-    
-    console.log('user created');
-
-    var user = {
-        username: username,
-        password: password,
-        firstName: firstName,
-        lastName: lastName
-    }
-    //ajax call for adding new users, POST
-    $.ajax({
-        url : "http://localhost:8080/users", // heroku url
-        type: "POST",
-        data : user,
-        success: function(response) {
-          event.preventDefault()
-          var html = "<p>" + username + " successfully created. Please log in under 'existing users.'</p>";
-          $('.random').append(html);
-          $('.new-user-form').hide();
-        }
-      })
-    });
-
-
 
 //existing user login form
+
 $('.login-form').on('submit', function(event) {
     event.preventDefault()
     window.location="/game.html"
@@ -406,7 +369,7 @@ $('.login-form').on('submit', function(event) {
 
 })
 })
-*/
+
 //this will show who is logged in on page load
 
 $(document).ready(function(response) {
@@ -417,7 +380,7 @@ $(document).ready(function(response) {
         console.log('response: ', response);
           var username = response.user.username
           var html = "<p>Logged in as " + username + "</p>";
-          $('.random').append(html);
+          $('.append-logout').append(html);
           $('.logout-button').show();
           $('.new-user-form').hide();
           //$('.login-form').hide();
@@ -426,6 +389,7 @@ $(document).ready(function(response) {
 })
 
 //can save score without losing progress, or it will save on gameOver
+
 $('.save-score-button').on('submit', function(event) {
   event.preventDefault();
 
@@ -460,16 +424,10 @@ $('.save-score-button').on('submit', function(event) {
 // this will allow a user to resume a session with the score they saved it at
 // add alert - warn them that they will lose current progress.
 
-// Ideally this function below will overwrite global variable score.
-// that will ensure gameOver works properly in terms of erasing
-// the 'currentScore' from the db, and then updates the 'score'
-// property (high score) with the actual score and not 0.
-
 $('.load-score-button').on('submit', function(event) {
   event.preventDefault();
       var data = {
         name: name,
-        //currentScore: currentScore,
         score: score
     }
 
@@ -479,17 +437,9 @@ $('.load-score-button').on('submit', function(event) {
       data : data,
       success: function(response) {
         score = response.currentScore
-        //console.log('score before ', loadScore)
-        //console.log('score inside function: ', score)
         var html = "<p>Successfully loaded score: " + score + ". Good Luck!</p>";
         $('.random').append(html);
         drawScore();
-        //try doing a document.ready ajax call to loadScore within this 
-        //callback/ajax that simply sets score = currentScore (on page load)
-        //this should allow the global to be overwritten with that value
-        //on page load AFTER someone clicks the "load" button
-        //document.location.reload();
-
   }
 })
 })
