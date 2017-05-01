@@ -130,16 +130,11 @@ function collisionDetection() {
 
 
 function gameOver(){
-  //get username and password into this request
   
     var data = {
     name: name,
     score: score,
-}     //makes sure current score erases on gameOver
-      //wait until after load score function is fixed, so that
-      //we know where the variable will be stored, and so we don't
-      //erase their score before it uploads (if they started
-      //on a loaded score)
+}
       $.ajax({
         url : "http://localhost:8080/eraseCurrentScore", // heroku url
         type: "PATCH",
@@ -148,42 +143,22 @@ function gameOver(){
 
         }
       });
-      //alternate
-      //make currentUserScore a global - probably already is
-      //load-score ajax call will overwrite that
-      //delete the ajax call above this
-      //go back to if else strategy below
-      //if currenthighscore < score, update score
-      //(if) else, currentuserscore > score, update score
-      //else, set currentScore=0 from client? instead of server
-      //which it is currently
-      //or set global score = 0 + currentUserScore.value;
 
         $.ajax({
             url : "http://localhost:8080/existing", // heroku url
             type: "GET",
             data : data,
             success: function(data) {
-              console.log('data.user.score: ',data.user.score); //gets here
-              //for(var i=0; i<data.length; i++) {
+              console.log('data.user.score: ', data.user.score); //gets here
                   var currentHighScore = data.user.score;
-                  //console.log(data);
-                  console.log('score: ', score);
-                  console.log('currentHighScore: ', currentHighScore);
+                  console.log('currentHighScore: ', currentHighScore);  
                 if (currentHighScore < score) {
                   $.ajax({
                     url : "http://localhost:8080/users/" + score, // heroku url
                     type: "PATCH",
                     data : data,
                     success: function(response) {
-                      //add another patch request to erase the value of
-                      //currentScore in the database when the game ends AND
 
-                      //console.log('patch working');
-                      //for(var i=0; i<data.length; i++) {
-                      //var html = "<tr><td class='table-data-score'>" + data[i].score + " </td><td class='table-data-name'>" + data[i].username + '</td></tr>';
-                      //$('.scores-table').append(html);
-                    //}
                     }
                   })
                 }
@@ -379,14 +354,24 @@ $(document).ready(function(response) {
       success: function(response) {
         console.log('response: ', response);
           var username = response.user.username
+          var savedScore = response.user.currentScore
           var html = "<p>Logged in as " + username + "</p>";
           $('.append-logout').append(html);
           $('.logout-button').show();
           $('.new-user-form').hide();
+          //$('.saved-score-box-form').val(savedScore);
           //$('.login-form').hide();
+          document.getElementById("myLink").innerHTML=savedScore;
+
   }
 })
 })
+/*
+window.onload = function() {
+       //when the document is finished loading, replace everything
+       //between the <a ...> </a> tags with the value of splitText
+   document.getElementById("myLink").innerHTML=6;
+}*/
 
 //can save score without losing progress, or it will save on gameOver
 
@@ -405,17 +390,35 @@ $('.save-score-button').on('submit', function(event) {
         success: function(response) {
           var savedScore = response.currentScore
           var highScore = response.score
-          var html = "<p>Your current saved score is " + savedScore + ". This will be added to the leaderboards, and you can continue playing from that score by clicking load!</p>";
-          $('.random').append(html);
+          //var html = "<p>Your current saved score is " + savedScore + ". This will be added to the leaderboards, and you can continue playing from that score by clicking load!</p>";
+          //$('.random').append(html);
+          //$('.saved-score-box').append(savedScore);
+          document.getElementById("myLink").innerHTML=savedScore;
           if (savedScore > highScore) {
                   $.ajax({
                     url : "http://localhost:8080/users/" + score, // heroku url
                     type: "PATCH",
                     data : data,
                     success: function(response) {
+                      //window.location.reload();
+                    //var savedScore = response.currentScore
+                    //$('.saved-score-box').append(savedScore);
+                    //$('.saved-score-box').value(savedScore);
+
         }
-      });
-    };
+      });       $.ajax({
+        url : "http://localhost:8080/currentScore/" + score, // heroku url
+        type: "PATCH",
+        data : data,
+        success: function(response) {
+          var savedScore = response.currentScore
+          var highScore = response.score
+          //var html = "<p>Your current saved score is " + savedScore + ". This will be added to the leaderboards, and you can continue playing from that score by clicking load!</p>";
+          //$('.random').append(html);
+          //$('.saved-score-box').append(savedScore);
+        }
+      });// 
+    }; document.location.reload()
   }
 });
 });
@@ -437,8 +440,6 @@ $('.load-score-button').on('submit', function(event) {
       data : data,
       success: function(response) {
         score = response.currentScore
-        var html = "<p>Successfully loaded score: " + score + ". Good Luck!</p>";
-        $('.random').append(html);
         drawScore();
   }
 })

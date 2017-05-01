@@ -23,7 +23,7 @@ UserSchema.methods.apiRepr = function() {
   return {
     username: this.username || '',
     score: this.score || '',
-    currentScore: this.score || '',
+    currentScore: this.currentScore || '',
     firstName: this.firstName || '',
     lastName: this.lastName || ''
   };

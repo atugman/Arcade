@@ -110,7 +110,7 @@ app.patch('/users/:score',
   passport.authenticate('basic', {session: false}),
   (req, res) => {
     //console.log(req.user);
-    User.findByIdAndUpdate(req.user._id, {score: req.params.score}, {new: true},
+    User.findByIdAndUpdate(req.user._id, {score: req.params.score, currentScore: 0}, {new: true},
   (err, updatedItem) => {
     if (err) {
       res.json(err)
@@ -251,6 +251,7 @@ app.post('/users', (req, res) => {
 });
 
 //login
+//set score and currentScore to 0 for first time users
 app.get('/users',
   passport.authenticate('basic', {session: true}),
   (req, res) => res.json({user: req.user.apiRepr()})
