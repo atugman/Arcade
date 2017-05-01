@@ -39,3 +39,9 @@ button {
 	text-align: right;
 	color: white;
 }
+
+.box {
+	width: 480px;
+	height: 320px;
+	background-color: white;
+}

@@ -47,6 +47,12 @@ app.get('/', (req, res) => {
 })
 */
 
+app.get('/', (req, res) => {
+    if(err)
+      return res.send(err)
+    res.json(res)
+})
+
 app.get('/scores', (req, res) => {
   User.find({}, null, {sort: '-score'}, function(err, scores) {
     if(err)
@@ -283,6 +289,7 @@ req.session.destroy(function() {
 app.get('/logout', function (req, res){
   req.session.destroy()
   res.json({loggedOut: true})
+  res.redirect('/')
 });
 
 //app.get('/logout', function (req, res){

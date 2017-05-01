@@ -310,7 +310,14 @@ $(document).ready(function(){
 
 $(document).ready(function() {
   $('.logout-button').show();
+  //$('#myCanvas').hide();
 })
+
+//$('.box').on('click', function(event) {
+  //$('.box').hide();
+  //$('#myCanvas').show();
+  //draw();
+//}
 
 //existing user login form
 
@@ -453,8 +460,7 @@ $('.logout-button').on('click', function(event) {
         type: "GET",
         success: function(response) {
           if (response.loggedOut) {
-            window.location="/index.html"
-            console.log('logged out');
+            window.location="/"
           }
   }
 })
