@@ -3,7 +3,7 @@ $('.start-game').on('click', function(event) {
     url : "http://localhost:8080/existing",
     type: "GET",
     success: function(response) {
-      window.location="/game.html"
+      window.location="/login-page.html"
     }
   })
 })

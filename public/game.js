@@ -342,7 +342,7 @@ $(document).ready(function(){
 $(document).ready(function() {
   $('.logout-button').hide();
 })
-
+/*moved to login.js
 //add new user
 $('.new-user-form').on('submit', function(event) {
     event.preventDefault()
@@ -378,6 +378,7 @@ $('.new-user-form').on('submit', function(event) {
 //existing user login form
 $('.login-form').on('submit', function(event) {
     event.preventDefault()
+    window.location="/game.html"
     var username = event.target.Username.value
     var password = event.target.Password.value
   
@@ -392,6 +393,7 @@ $('.login-form').on('submit', function(event) {
         type: "GET",
         data : user,
         success: function(response) {
+          //window.location="/game.html"
             var html = "<p>Login attempt successful</p>";
             var username = response.user.username
             var html2 = "<p>Logged in as " + username + "</p>";
@@ -404,7 +406,7 @@ $('.login-form').on('submit', function(event) {
 
 })
 })
-
+*/
 //this will show who is logged in on page load
 
 $(document).ready(function(response) {
