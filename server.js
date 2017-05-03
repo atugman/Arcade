@@ -109,13 +109,14 @@ passport.deserializeUser(function (user, done) {
 
 app.get('/existing',
   passport.authenticate('basic', {session: false}),
-  (req, res) => res.json({user: req.user.apiRepr()})
+  (req, res) => res.json({user: req.user.apiRepr()},
+  console.log(req.user))
 );
+
 
 app.patch('/users/:score',
   passport.authenticate('basic', {session: false}),
   (req, res) => {
-    //console.log(req.user);
     User.findByIdAndUpdate(req.user._id, {score: req.params.score, currentScore: 0}, {new: true},
   (err, updatedItem) => {
     if (err) {
@@ -128,7 +129,6 @@ app.patch('/users/:score',
 app.patch('/currentScore/:score',
   passport.authenticate('basic', {session: false}),
   (req, res) => {
-    //console.log(req.user);
     User.findByIdAndUpdate(req.user._id, {currentScore: req.params.score}, {new: true},
   (err, updatedItem) => {
     if (err) {
@@ -141,7 +141,6 @@ app.patch('/currentScore/:score',
 app.patch('/eraseCurrentScore',
   passport.authenticate('basic', {session: false}),
   (req, res) => {
-    //console.log(req.user);
     User.findByIdAndUpdate(req.user._id, {currentScore: 0}, {new: true},
   (err, updatedItem) => {
     if (err) {
