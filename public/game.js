@@ -1,4 +1,4 @@
-const apiURL = "localhost:8080"
+const apiURL = "http://glacial-hollows-48767.herokuapp.com/"
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");

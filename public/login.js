@@ -1,4 +1,4 @@
-const apiURL = "localhost:8080"
+const apiURL = "http://glacial-hollows-48767.herokuapp.com/"
 
 $('.new-user-form').on('submit', function(event) {
     event.preventDefault()
