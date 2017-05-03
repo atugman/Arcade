@@ -13,11 +13,11 @@
     "body-parser": "^1.17.1",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
-    "chair": "0.0.0",
     "cookie-parser": "^1.4.3",
     "express": "^4.14.1",
     "express-session": "^1.15.2",
     "mocha": "^3.3.0",
+    "mongoose": "^4.9.7",
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",
@@ -29,9 +29,6 @@
     "mocha": "^3.3.0",
     "mongo": "^0.1.0",
     "mongodb": "^2.2.24",
-    "mongoose": "^4.8.4",
-    "monk": "*",
-    "passport": "^0.3.2",
-    "passport-http": "^0.3.0"
+    "monk": "*"
   }
 }
