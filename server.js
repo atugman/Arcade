@@ -109,8 +109,7 @@ passport.deserializeUser(function (user, done) {
 
 app.get('/existing',
   passport.authenticate('basic', {session: false}),
-  (req, res) => res.json({user: req.user.apiRepr()},
-  console.log(req.user))
+  (req, res) => res.json({user: req.user.apiRepr()})
 );
 
 
