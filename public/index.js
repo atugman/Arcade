@@ -1,3 +1,5 @@
+const apiURL = "http://glacial-hollows-48767.herokuapp.com"
+
 $('.start-game').on('click', function(event) {
       window.location="/login-page.html"
     });
@@ -5,7 +7,7 @@ $('.start-game').on('click', function(event) {
 
 $(document).ready(function(response) {
   $.ajax({
-    url : "http://localhost:8080/",
+    url : apiURL,
     type: "GET",
     success: function(response) {
       console.log('/ worked');

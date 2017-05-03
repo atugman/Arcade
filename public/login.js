@@ -1,3 +1,5 @@
+const apiURL = "http://glacial-hollows-48767.herokuapp.com"
+
 $('.new-user-form').on('submit', function(event) {
     event.preventDefault()
     var username = event.target.Username.value
@@ -15,7 +17,7 @@ $('.new-user-form').on('submit', function(event) {
     }
     //ajax call for adding new users, POST
     $.ajax({
-        url : "http://localhost:8080/users", // heroku url
+        url : apiURL + "/users", // heroku url
         type: "POST",
         data : user,
         success: function(response) {
@@ -44,7 +46,7 @@ $('.login-form').on('submit', function(event) {
     }
 
     $.ajax({
-        url : "http://localhost:8080/existing", // heroku url
+        url : apiURL + "/existing", // heroku url
         type: "GET",
         data : user,
         success: function(response) {

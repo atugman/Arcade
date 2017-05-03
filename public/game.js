@@ -1,3 +1,5 @@
+const apiURL = "http://glacial-hollows-48767.herokuapp.com"
+
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
@@ -136,7 +138,7 @@ function gameOver(){
     score: score,
 }
       $.ajax({
-        url : "http://localhost:8080/eraseCurrentScore", // heroku url
+        url : apiURL + "/eraseCurrentScore",
         type: "PATCH",
         data : data,
         success: function(response) {
@@ -145,7 +147,7 @@ function gameOver(){
       });
 
         $.ajax({
-            url : "http://localhost:8080/existing", // heroku url
+            url : apiURL + "/existing",
             type: "GET",
             data : data,
             success: function(data) {
@@ -154,7 +156,7 @@ function gameOver(){
                   console.log('currentHighScore: ', currentHighScore);  
                 if (currentHighScore < score) {
                   $.ajax({
-                    url : "http://localhost:8080/users/" + score, // heroku url
+                    url : apiURL + "/users/" + score, // heroku url
                     type: "PATCH",
                     data : data,
                     success: function(response) {
@@ -294,7 +296,7 @@ $(document).ready(function(){
     score: score
 }
         $.ajax({
-            url : "http://localhost:8080/scores", // heroku url
+            url : apiURL + "/scores", // heroku url
             type: "GET",
             data : data,
             success: function(data) {
@@ -334,7 +336,7 @@ $('.login-form').on('submit', function(event) {
     }
 
     $.ajax({
-        url : "http://localhost:8080/existing", // heroku url
+        url : apiURL + "/existing", // heroku url
         type: "GET",
         data : user,
         success: function(response) {
@@ -356,7 +358,7 @@ $('.login-form').on('submit', function(event) {
 
 $(document).ready(function(response) {
     $.ajax({
-      url : "http://localhost:8080/existing", // heroku url
+      url : apiURL + "/existing", // heroku url
       type: "GET",
       success: function(response) {
         console.log('response: ', response);
@@ -391,7 +393,7 @@ $('.save-score-button').on('submit', function(event) {
 }
 
       $.ajax({
-        url : "http://localhost:8080/currentScore/" + score, // heroku url
+        url : apiURL + "/currentScore/" + score, // heroku url
         type: "PATCH",
         data : data,
         success: function(response) {
@@ -403,7 +405,7 @@ $('.save-score-button').on('submit', function(event) {
           document.getElementById("myLink").innerHTML=savedScore;
           if (savedScore > highScore) {
                   $.ajax({
-                    url : "http://localhost:8080/users/" + score, // heroku url
+                    url : apiURL + "/users/" + score, // heroku url
                     type: "PATCH",
                     data : data,
                     success: function(response) {
@@ -414,7 +416,7 @@ $('.save-score-button').on('submit', function(event) {
 
         }
       });       $.ajax({
-        url : "http://localhost:8080/currentScore/" + score, // heroku url
+        url : apiURL + "/currentScore/" + score, // heroku url
         type: "PATCH",
         data : data,
         success: function(response) {
@@ -442,7 +444,7 @@ $('.load-score-button').on('submit', function(event) {
     }
 
     $.ajax({
-      url : "http://localhost:8080/loadScore", // heroku url
+      url : apiURL + "/loadScore",
       type: "GET",
       data : data,
       success: function(response) {
@@ -456,7 +458,7 @@ $('.load-score-button').on('submit', function(event) {
 
 $('.logout-button').on('click', function(event) {
   $.ajax({
-        url : "http://localhost:8080/logout/", // heroku url
+        url : apiURL + "/logout/",
         type: "GET",
         success: function(response) {
           if (response.loggedOut) {
