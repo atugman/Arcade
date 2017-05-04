@@ -31,22 +31,6 @@
 
     <title>Arcade</title>
 
-    <!-- Bootstrap Material Design
-    <link rel="stylesheet" type="text/css" href="..Documents/Projects/node-projects/node-capstone/node_modules/bootstrap/dist/css/bootstrap-material-design.css">
-    <link rel="stylesheet" type="text/css" href="..Documents/Projects/node-projects/node-capstone/node_modules/bootstrap-material-design/dist/css/ripples.min.css">
--->
-    <!-- Bootstrap
-    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.iife.js">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.iife.js.map">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.iife.min.js">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.umd.js">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.umd.js.map">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.umd.min.js">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.umd.min.js.map">
--->
     <link rel="stylesheet" type="text/css" href="main.css">
 
 
@@ -93,9 +77,6 @@
                         <a href="#portfolio">Portfolio</a>
                     </li>
                     -->
-                    <li class="page-scroll">
-                        <a href="#about">About</a>
-                    </li>
                     <li class="page-scroll logout-button">
                         <a href="#contact">Logout</a>
                     </li>
@@ -115,8 +96,8 @@
                     
                     <div class="saved-score-box">
                     <form class="saved-score-box-form">
-                        Saved Score:<br>
-                        <a id="myLink" href="game.js"></a><br>
+                        <strong>Saved Score:</strong>
+                        <strong><href id="myLink" href="game.js"></href><br></strong>
                     </form>
                     </div>
 
@@ -139,16 +120,15 @@
                 <div class="main-game-column col-lg-6">
                     <!--<div class="box"></div>-->
                     <canvas id="myCanvas" width="480" height="320"></canvas>
-                    <div><p>Move the paddle to the brick across the screen using your arrow keys without getting touched by the moving balls!</p></div>
-
+                    <div><strong><p class='instructions'>Dodgeball! Using your arow keys, move the paddle to the brick across the screen while dodging the moving balls!</p></strong></div>
                     <div>
-                    <form class='save-score-button'>
-                        <button>Save</button>
+                    <form class='save-score-button col-lg-6'>
+                        <strong><button class='save'>Save</button></strong>
                     </form>
                     </div>
                     <div>
-                    <form class='load-score-button'>
-                        <button>Load</button>
+                    <form class='load-score-button col-lg-6'>
+                        <strong><button class='load'>Load</button></strong>
                     </form>
                     </div>
                     
@@ -156,9 +136,10 @@
 
                 <!--high scores column-->
                 <div class="high-scores-column col-lg-3">
-                        <table class="table">
-                            <th class="scores-table">High Scores</th>
-                        </table>
+                    <!--<strong><div class="table-head">High Scores</div></strong>-->
+                        <strong><table class='scores-table'>
+                            <th colspan="2">Leaderboard</th>
+                        </table></strong>
                 </div>
 
             </div>

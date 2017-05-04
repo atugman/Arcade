@@ -17,15 +17,11 @@ $('.new-user-form').on('submit', function(event) {
     }
     //ajax call for adding new users, POST
     $.ajax({
-        url : apiURL + "/users", // heroku url
+        url : apiURL + "/users",
         type: "POST",
         data : user,
         success: function(response) {
         window.location="/game.html"
-          event.preventDefault()
-          var html = "<p>" + username + " successfully created. Please log in under 'existing users.'</p>";
-          $('.random').append(html);
-          $('.new-user-form').hide();
         }
       })
     });
@@ -46,19 +42,11 @@ $('.login-form').on('submit', function(event) {
     }
 
     $.ajax({
-        url : apiURL + "/existing", // heroku url
+        url : apiURL + "/existing",
         type: "GET",
         data : user,
         success: function(response) {
           window.location="/game.html"
-            var html = "<p>Login attempt successful</p>";
-            var username = response.user.username
-            var html2 = "<p>Logged in as " + username + "</p>";
-            $('.random').append(html);
-            $('.random').append(html2);
-            $('.new-user-form').hide();
-            $('.login-form').hide();
-            $('.logout-button').show();
     }
 
 })

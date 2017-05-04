@@ -1,22 +1,36 @@
+body {
+	font-family: helvetica;
+}
+
 .three {
 	width: 100%;
 	position: absolute;
 	box-sizing: border-box;
 }
 
-.table {
-	display: table;
-    border-collapse: separate;
+table {
+    border-collapse: collapse;
 }
 
-.table-data-score {
-	color: white;
+table, th, td {
+    border: 5px solid white;
+}
+
+
+
+td {
+	padding-top: 4px;
+	padding-bottom: 6px;
+	/*padding-left: 12px;
+	padding-right: 12px;*/
 	font-size: 16px;
 }
 
-.table-data-name {
-	color: white;
-	font-size: 16px;
+th {
+	text-align: center;
+	padding: 12px;
+	font-size: 32px;
+	width: 262.5px;
 }
 
 h1 {
@@ -25,14 +39,24 @@ h1 {
 
 .input {
 	color: #18BC9C;
+	font-size: 16px;
+}
+
+.form-category {
+	font-size: 18px;
 }
 
 button {
 	color: #18BC9C;
 }
 
-.save-score-button {
-	color: #18BC9C;
+.save, .load {/*edit-center*/
+	color: white;
+	background-color: #18BC9C;
+	border: 5px solid white;
+	font-size: 32px;
+	width: 160px;
+	height: 57px;
 }
 
 .append-logout {
@@ -44,4 +68,25 @@ button {
 	width: 480px;
 	height: 320px;
 	background-color: white;
+}
+
+.form-head {
+	font-size: 40px;
+}
+
+.saved-score-box-form {
+	font-size: 32px;
+}
+
+#myLink {
+	font-size: 32px;
+}
+
+#myCanvas {
+	border: 5px solid white;
+}
+
+.instructions {
+	font-family: helvetica;
+	font-size: 18px;
 }

@@ -109,7 +109,9 @@ passport.deserializeUser(function (user, done) {
 
 app.get('/existing',
   passport.authenticate('basic', {session: false}),
-  (req, res) => res.json({user: req.user.apiRepr()})
+  (req, res) => {console.log(req.user) 
+    res.json({user: req.user})
+  }
 );
 
 
@@ -256,10 +258,10 @@ app.post('/users', (req, res) => {
 
 //login
 //set score and currentScore to 0 for first time users
-app.get('/users',
-  passport.authenticate('basic', {session: true}),
-  (req, res) => res.json({user: req.user.apiRepr()})
-);
+/*app.get('/users',
+  passport.authenticate('basic', {session: false}),
+  (req, res) => res.json({user: req.user})
+);*/
 
 
 
@@ -283,11 +285,25 @@ req.session.destroy(function() {
   res.redirect('/');
   });
 
-*/
+
 app.get('/logout', function (req, res){
+  console.log('req.session.authenticated = ', req.session.authenticated)
   req.session.destroy()
   res.json({loggedOut: true})
   res.redirect('/')
+});
+*/
+ app.get('/logout', function(req, res) {
+  req.session.destroy(function(err){
+     if(err){
+        console.log('error: ', err);
+     }else{
+      console.log('req.session: ', req.user)
+      req.logout();
+      res.redirect('/');     
+    }
+  });
+
 });
 
 //app.get('/logout', function (req, res){
