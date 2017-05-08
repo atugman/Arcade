@@ -245,7 +245,8 @@ app.post('/users', (req, res) => {
           username: username,
           password: hash,
           firstName: firstName,
-          lastName: lastName
+          lastName: lastName,
+          score: 0
         })
     })
     .then(user => {
@@ -258,10 +259,10 @@ app.post('/users', (req, res) => {
 
 //login
 //set score and currentScore to 0 for first time users
-/*app.get('/users',
+app.get('/users',
   passport.authenticate('basic', {session: false}),
   (req, res) => res.json({user: req.user})
-);*/
+);
 
 
 

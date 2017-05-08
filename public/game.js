@@ -1,4 +1,4 @@
-const apiURL = "http://glacial-hollows-48767.herokuapp.com"
+const apiURL = "http://localhost:8080"
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
@@ -144,12 +144,12 @@ function gameOver() {
         type: "GET",
         data: data,
         success: function(data) {
-            console.log('data.user.score: ', data.user.score); //gets here
+            console.log('data.user.score: ', data.user.score);
             var currentHighScore = data.user.score;
             console.log('currentHighScore: ', currentHighScore);
             if (currentHighScore < score) {
                 $.ajax({
-                    url: apiURL + "/users/" + score, // heroku url
+                    url: apiURL + "/users/" + score,
                     type: "PATCH",
                     data: data,
                     success: function(response) {
@@ -160,25 +160,9 @@ function gameOver() {
         }
     })
 
-
-    var msg = {
-        "messageType": "SCORE",
-        "score": score
-    };
-
-    window.parent.postMessage(msg, "*");
     alert("GAME OVER! Your score was " + score);
     document.location.reload();
 }
-
-
-var message = {
-    messageType: "SETTING",
-    options: {
-        "width": 500,
-        "height": 450
-    }
-};
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -299,14 +283,7 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     $('.logout-button').show();
-    //$('#myCanvas').hide();
 })
-
-//$('.box').on('click', function(event) {
-//$('.box').hide();
-//$('#myCanvas').show();
-//draw();
-//}
 
 //existing user login form
 
@@ -327,7 +304,6 @@ $('.login-form').on('submit', function(event) {
         type: "GET",
         data: user,
         success: function(response) {
-            //window.location="/game.html"
             var html = "<p>Login attempt successful</p>";
             var username = response.user.username
             var html2 = "<p>Logged in as " + username + "</p>";
@@ -344,6 +320,7 @@ $('.login-form').on('submit', function(event) {
 //this will show who is logged in on page load
 
 $(document).ready(function(response) {
+
     $.ajax({
         url: apiURL + "/existing",
         type: "GET",
@@ -354,9 +331,7 @@ $(document).ready(function(response) {
             var html = "<p>Logged in as " + username + "</p>";
             $('.append-logout').append(html);
             $('.logout-button').show();
-            $('.new-user-form').hide();
             document.getElementById("myLink").innerHTML = savedScore;
-
         }
     })
 })
@@ -373,39 +348,28 @@ $('.save-score-button').on('submit', function(event) {
     }
 
     $.ajax({
-        url: apiURL + "/currentScore/" + score, // heroku url
+        url: apiURL + "/currentScore/" + score,
         type: "PATCH",
         data: data,
         success: function(response) {
             var savedScore = response.currentScore
             var highScore = response.score
-                //var html = "<p>Your current saved score is " + savedScore + ". This will be added to the leaderboards, and you can continue playing from that score by clicking load!</p>";
-                //$('.random').append(html);
-                //$('.saved-score-box').append(savedScore);
             document.getElementById("myLink").innerHTML = savedScore;
             if (savedScore > highScore) {
                 $.ajax({
-                    url: apiURL + "/users/" + score, // heroku url
+                    url: apiURL + "/users/" + score,
                     type: "PATCH",
                     data: data,
                     success: function(response) {
-                        //window.location.reload();
-                        //var savedScore = response.currentScore
-                        //$('.saved-score-box').append(savedScore);
-                        //$('.saved-score-box').value(savedScore);
-
                     }
                 });
                 $.ajax({
-                    url: apiURL + "/currentScore/" + score, // heroku url
+                    url: apiURL + "/currentScore/" + score,
                     type: "PATCH",
                     data: data,
                     success: function(response) {
                         var savedScore = response.currentScore
                         var highScore = response.score
-                            //var html = "<p>Your current saved score is " + savedScore + ". This will be added to the leaderboards, and you can continue playing from that score by clicking load!</p>";
-                            //$('.random').append(html);
-                            //$('.saved-score-box').append(savedScore);
                     }
                 });
             };
@@ -414,7 +378,6 @@ $('.save-score-button').on('submit', function(event) {
     });
 });
 
-//var loadScore = 0;
 // this will allow a user to resume a session with the score they saved it at
 // add alert - warn them that they will lose current progress.
 
@@ -453,5 +416,3 @@ $('.logout-button').on('click', function(event) {
 $('.home-button').on('click', function(event) {
     window.location = "/"
 });
-
-//window.location=index.html
