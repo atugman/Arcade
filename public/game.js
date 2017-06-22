@@ -1,4 +1,4 @@
-const apiURL = "http://glacial-hollows-48767.herokuapp.com"
+const apiURL = "http://localhost:8080"
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
@@ -325,7 +325,7 @@ $(document).ready(function(response) {
         url: apiURL + "/existing",
         type: "GET",
         success: function(response) {
-          console.log(response.user);
+          console.log('response: ', response);
             var username = response.user.username
             var savedScore = response.user.currentScore
             var html = "<p>Logged in as " + username + "</p>";
