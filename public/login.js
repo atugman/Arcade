@@ -1,4 +1,4 @@
-const apiURL = "http://glacial-hollows-48767.herokuapp.com/"
+const apiURL = "http://localhost:8080"
 
 $('.new-user-form').on('submit', function(event) {
     event.preventDefault()
@@ -37,15 +37,14 @@ $('.login-form').on('submit', function(event) {
     var username = event.target.Username.value
     var password = event.target.Password.value
 
-
     var user = {
         username: username,
         password: password,
     }
 
     $.ajax({
-        url : apiURL + "/existing",
-        type: "GET",
+        url : apiURL + "/login",
+        type: "POST",
         data : user,
         success: function(response) {
           window.location="/game.html"

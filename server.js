@@ -78,9 +78,10 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
+
+passport.use(basicStrategy);
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(basicStrategy);
 
 passport.serializeUser(function (user, done) {
     done(null, user.id);
@@ -92,7 +93,7 @@ passport.deserializeUser(function (_id, done) {
     });
 });
 
-app.get('/existing',
+app.post('/login',
   passport.authenticate('basic', {session: true}),
   (req, res) => {console.log(req.user)
     res.json({user: req.user})
@@ -100,6 +101,7 @@ app.get('/existing',
 );
 
 function isAuthenticated (req, res, next) {
+  console.log('req.user ', req.user);
   if (req.user) {
     next()
   } else {
@@ -236,22 +238,32 @@ app.post('/users', (req, res) => {
 //   res.redirect('/');
 //   });
 
-app.get('/logout', function (req, res){
-  console.log('req.session.authenticated = ', req.session.authenticated)
-  req.session.destroy()
-  res.json({loggedOut: true})
-  res.redirect('/')
-});
+// app.get('/logout', function (req, res){
+//   console.log('req.session.authenticated = ', req.session.authenticated)
+//   req.session.destroy()
+//   res.json({loggedOut: true})
+//   res.redirect('/')
+// });
 
- app.get('/logout', function(req, res) {
-   req.logout();
-   req.session.destroy(function(err){
-     if(err){
-        console.log('error: ', err);
-     }else{
-      res.redirect('/');
-    }
-  });
+//  app.get('/logout', function(req, res) {
+//    req.logout();
+//    req.session.destroy(function(err){
+//      if(err){
+//         console.log('error: ', err);
+//      }else{
+//       res.redirect('/');
+//     }
+//   });
+// });
+
+app.get('/userProfile', (req, res) => {
+  res.json({user: req.user})
+})
+
+app.get('/logout', (req, res) => {
+   req.session.destroy(function (err) {
+         res.json({loggedOut: true});
+     });
 });
 
 module.exports = {User};
