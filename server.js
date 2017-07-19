@@ -1,11 +1,8 @@
 const express = require('express');
 const app = express();
-const morgan = require('morgan');
 const bodyParser = require('body-parser');
-const session = require('express-session');
 const serveStatic = require('serve-static');
 const cookieParser = require('cookie-parser');
-
 const {BasicStrategy} = require('passport-http');
 
 const jsonParser = require('body-parser').json();
@@ -16,42 +13,16 @@ const mongoose = require('mongoose');
 const {User} = require('./models/users')
 
 mongoose.connect('mongodb://atugman:unc123@ds157529.mlab.com:57529/arcade')
+//mongoose.connect('mongodb://localhost:27017/andrewtugman-arcade')
 mongoose.Promise = global.Promise;
 
 const {PORT, DATABASE_URL} = require('./config');
 
-app.use(morgan('common'));
-app.use(bodyParser.urlencoded({ extended: true, }));
-app.use(bodyParser.json());
-
+app.use(jsonParser);
 app.use(express.static('public'));
-
-app.listen(process.env.PORT || 8080, function(){
-  console.log('Running ok')
-});
-
-app.use(express.static('public'));
-app.use(bodyParser());
-
-app.get('/', (req, res) => {
-    if(err)
-      return res.send(err)
-    res.json(res)
-})
-
-app.get('/scores', (req, res) => {
-  User.find({}, null, {sort: '-score'}, function(err, scores) {
-    if(err)
-      return res.send(err)
-    res.json(scores)
-  })
-})
-
-//AUTH
 
 const basicStrategy = new BasicStrategy((username, password, callback) => {
   let user;
-  console.log(username);
   User
     .findOne({username: username})
     .exec()
@@ -69,39 +40,32 @@ const basicStrategy = new BasicStrategy((username, password, callback) => {
       else {
         return callback(null, user)
       }
-    });
+    })
+    .catch(err => console.log('Invalid username or password'))
 });
 
-
-app.use(session({
-  secret: 'keyboard cat',
-  resave: true,
-  saveUninitialized: true
+app.use(require('express-session')({
+  secret: 'something something',
+  resave: false,
+  saveUninitialized: false
 }));
 
 passport.use(basicStrategy);
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.serializeUser(function (user, done) {
-    done(null, user.id);
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
 });
 
-passport.deserializeUser(function (_id, done) {
-    User.findById(_id, function (err, user) {
-        done(err, user);
-    });
+passport.deserializeUser(function(id, done) {
+  console.log('ID:', id);
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
 });
-
-app.post('/login',
-  passport.authenticate('basic', {session: true}),
-  (req, res) => {console.log(req.user)
-    res.json({user: req.user})
-  }
-);
 
 function isAuthenticated (req, res, next) {
-  console.log('req.user ', req.user);
   if (req.user) {
     next()
   } else {
@@ -109,10 +73,35 @@ function isAuthenticated (req, res, next) {
   }
 }
 
-app.get('/me', isAuthenticated, (req, res, next) => {
+app.get('/', (req, res) => {
+    if(err)
+      return res.send(err)
+    res.json(res)
+})
+
+app.get('/scores', (req, res) => {
+  User.find({}, null, {sort: '-score'}, function(err, scores) {
+    if(err)
+      return res.send(err)
+    res.json(scores)
+  })
+})
+
+app.get('/login',
+  passport.authenticate('basic'),
+  (req, res) => {
     res.json({user: req.user})
   }
-)
+);
+
+app.get('/logout', (req, res) => {
+   req.session.destroy((err) => {
+      if(err) {
+        res.send(err)
+      }
+      res.json({loggedOut: true});
+    });
+});
 
 app.patch('/users/:score',
   //passport.authenticate('basic', {session: false}),
@@ -227,44 +216,10 @@ app.post('/users', (req, res) => {
     });
 });
 
-
-// app.get('/users',
-//   passport.authenticate('basic', {session: false}),
-//   (req, res) => res.json({user: req.user})
-// );
-
-// req.session.destroy(function() {
-//   res.clearCookie('cookieName');
-//   res.redirect('/');
-//   });
-
-// app.get('/logout', function (req, res){
-//   console.log('req.session.authenticated = ', req.session.authenticated)
-//   req.session.destroy()
-//   res.json({loggedOut: true})
-//   res.redirect('/')
-// });
-
-//  app.get('/logout', function(req, res) {
-//    req.logout();
-//    req.session.destroy(function(err){
-//      if(err){
-//         console.log('error: ', err);
-//      }else{
-//       res.redirect('/');
-//     }
-//   });
-// });
-
-app.get('/userProfile', (req, res) => {
-  res.json({user: req.user})
+app.get('/userProfile', isAuthenticated, (req, res) => {
+  res.json({user: req.user.apiRepr()})
 })
 
-app.get('/logout', (req, res) => {
-   req.session.destroy(function (err) {
-         res.json({loggedOut: true});
-     });
+app.listen(process.env.PORT || 8080, function(){
+  console.log('Running ok')
 });
-
-module.exports = {User};
-module.exports = {app};

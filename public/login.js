@@ -37,18 +37,16 @@ $('.login-form').on('submit', function(event) {
     var username = event.target.Username.value
     var password = event.target.Password.value
 
-    var user = {
-        username: username,
-        password: password,
-    }
+    var settings = {
+        url: apiURL + '/login',
+        method: "GET",
+        headers: {
+          'content-type': "application/json",
+          authorization: "Basic " + btoa(username + ':' + password)
+        }
+      };
 
-    $.ajax({
-        url : apiURL + "/login",
-        type: "POST",
-        data : user,
-        success: function(response) {
-          window.location="/game.html"
-    }
-
-})
+      $.ajax(settings).done(function (response) {
+      location.href = '/game.html';
+      });
 })
