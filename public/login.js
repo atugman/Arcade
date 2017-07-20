@@ -23,7 +23,7 @@ $('.new-user-form').on('submit', function(event) {
         data: user,
         success: function(response) {
           if (!(response.hasOwnProperty("message"))) {
-            swal("User created!", "Please log in below.", "success")
+            swal("User created!", "Please log in.", "success")
           } else {
             var html = response.message
             sweetAlert("Oops...", html, "error");
