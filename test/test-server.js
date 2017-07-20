@@ -33,7 +33,7 @@ describe('scores page', function() {
 describe('GET endpoint for existing users', function() {
   it('should log existing users in', function(done) {
     chai.request(app)
-      .get('/existing')
+      .get('/login')
       .end(function(err, res) {
         res.body.should.be.a('object');
         done();
@@ -97,17 +97,6 @@ describe('GET endpoint', function() {
   });
 
 describe('GET endpoint', function() {
-  it('should log user in', function(done) {
-    chai.request(app)
-      .get('/users')
-      .end(function(err, res) {
-        res.body.should.be.a('object');
-        done();
-        })
-    });
-  });
-
-describe('GET endpoint', function() {
   it('should log user out', function(done) {
     chai.request(app)
       .get('/logout')
@@ -117,5 +106,3 @@ describe('GET endpoint', function() {
         })
     });
   });
-
-module.exports = app
