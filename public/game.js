@@ -1,4 +1,5 @@
 const apiURL = "http://glacial-hollows-48767.herokuapp.com"
+//const apiURL = "http://localhost:8080"
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
@@ -144,7 +145,6 @@ function gameOver() {
         type: "GET",
         data: data,
         success: function(data) {
-          console.log(score);
             var currentHighScore = data.user.score;
             if (currentHighScore < score) {
                 $.ajax({
@@ -161,6 +161,9 @@ function gameOver() {
 
     alert("GAME OVER! Your score was " + score);
     document.location.reload();
+    //swal("GAME OVER!", "Your score was " + score, "success")
+
+
 }
 
 function draw() {
@@ -184,6 +187,9 @@ function draw() {
         //checking if the ball hits the paddle
         if (x > paddleX && x < paddleX + paddleWidth) {
             gameOver();
+            //swal("Good job!", "You clicked the button!", "success")
+            //document.location.reload();
+
         } else {
             dy = -dy;
         }
@@ -324,7 +330,6 @@ $(document).ready(function(response) {
         url: apiURL + "/userProfile",
         type: "GET",
         success: function(response) {
-          console.log('response: ', response);
             var username = response.user.username
             var savedScore = response.user.currentScore
             var html = "<p>Logged in as " + username + "</p>";

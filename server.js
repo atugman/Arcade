@@ -197,7 +197,7 @@ app.post('/users', (req, res) => {
     .exec()
     .then(count => {
       if (count > 0) {
-        return res.json({message: 'username already taken'});
+        return res.json({message: "That username is already taken, why don't you try another?"});
       }
       // if no existing user, hash password
       return User.hashPassword(password)

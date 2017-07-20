@@ -1,4 +1,5 @@
 const apiURL = "http://glacial-hollows-48767.herokuapp.com"
+//const apiURL = "http://localhost:8080"
 
 $('.new-user-form').on('submit', function(event) {
     event.preventDefault()
@@ -21,13 +22,11 @@ $('.new-user-form').on('submit', function(event) {
         type: "POST",
         data: user,
         success: function(response) {
-          console.log('response from server ', response);
           if (!(response.hasOwnProperty("message"))) {
-            var html = '<p>User created, please log in</p>'
-            $('.below-create-button').append(html);
+            swal("User created!", "Please log in below.", "success")
           } else {
             var html = response.message
-            $('.below-create-button').append(html);
+            sweetAlert("Oops...", html, "error");
         }
         }
       })
@@ -58,3 +57,10 @@ $('.login-form').on('submit', function(event) {
       location.href = '/game.html';
       });
 })
+
+// swal({
+//   title: "Error!",
+//   text: "Here's my error message!",
+//   type: "error",
+//   confirmButtonText: "Cool"
+// });
