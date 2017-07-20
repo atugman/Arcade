@@ -1,4 +1,4 @@
-const apiURL = "http://localhost:8080"
+const apiURL = "http://glacial-hollows-48767.herokuapp.com"
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
@@ -140,13 +140,12 @@ function gameOver() {
     });
 
     $.ajax({
-        url: apiURL + "/userProfile",
+        url: apiURL + "/checkScore",
         type: "GET",
         data: data,
         success: function(data) {
-            console.log('data.user.score: ', data.user.score);
+          console.log(score);
             var currentHighScore = data.user.score;
-            console.log('currentHighScore: ', currentHighScore);
             if (currentHighScore < score) {
                 $.ajax({
                     url: apiURL + "/users/" + score,
@@ -300,7 +299,7 @@ $('.login-form').on('submit', function(event) {
     }
 
     $.ajax({
-        url: apiURL + "/existing", // heroku url
+        url: apiURL + "/userProfile", // heroku url
         type: "GET",
         data: user,
         success: function(response) {

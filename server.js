@@ -5,7 +5,7 @@ const serveStatic = require('serve-static');
 const cookieParser = require('cookie-parser');
 const {BasicStrategy} = require('passport-http');
 
-const jsonParser = require('body-parser').json();
+//const jsonParser = require('body-parser').json();
 const passport = require('passport');
 
 const mongoose = require('mongoose');
@@ -18,7 +18,10 @@ mongoose.Promise = global.Promise;
 
 const {PORT, DATABASE_URL} = require('./config');
 
-app.use(jsonParser);
+
+app.use(bodyParser.urlencoded({ extended: true, }));
+app.use(bodyParser.json());
+//app.use(jsonParser);
 app.use(express.static('public'));
 
 const basicStrategy = new BasicStrategy((username, password, callback) => {
@@ -152,6 +155,7 @@ app.get('/loadScore',
     })
 
 app.post('/users', (req, res) => {
+  console.log('req ', req);
   if (!req.body) {
     return res.json({message: 'No request body'});
   }
@@ -218,6 +222,10 @@ app.post('/users', (req, res) => {
 
 app.get('/userProfile', isAuthenticated, (req, res) => {
   res.json({user: req.user.apiRepr()})
+})
+
+app.get('/checkScore', (req, res) => {
+  res.json({user: req.user})
 })
 
 app.listen(process.env.PORT || 8080, function(){
