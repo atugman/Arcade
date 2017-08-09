@@ -37,13 +37,9 @@ $('.new-user-form').on('submit', function(event) {
       })
     });
 
-
-    // var html = response.message
-    // $('.below-create-button').append(html);
 //existing user login form
 $('.login-form').on('submit', function(event) {
     event.preventDefault()
-    //window.location="/game.html"
     var username = event.target.Username.value
     var password = event.target.Password.value
 
@@ -62,10 +58,3 @@ $('.login-form').on('submit', function(event) {
       location.href = '/game.html';
       });
 })
-
-// swal({
-//   title: "Error!",
-//   text: "Here's my error message!",
-//   type: "error",
-//   confirmButtonText: "Cool"
-// });
