@@ -14,7 +14,8 @@ $('.new-user-form').on('submit', function(event) {
         password: password,
         score: score,
         firstName: firstName,
-        lastName: lastName
+        lastName: lastName,
+        currentScore: score
     }
     //ajax call for adding new users, POST
     $.ajax({
@@ -24,6 +25,10 @@ $('.new-user-form').on('submit', function(event) {
         success: function(response) {
           if (!(response.hasOwnProperty("message"))) {
             swal("User created!", "Please log in.", "success")
+            event.target.Username.value = '';
+            event.target.Password.value = '';
+            event.target.firstname.value = '';
+            event.target.lastname.value = '';
           } else {
             var html = response.message
             sweetAlert("Oops...", html, "error");

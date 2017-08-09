@@ -290,38 +290,6 @@ $(document).ready(function() {
     $('.logout-button').show();
 })
 
-//existing user login form
-
-$('.login-form').on('submit', function(event) {
-    event.preventDefault()
-    window.location = "/game.html"
-    var username = event.target.Username.value
-    var password = event.target.Password.value
-
-
-    var user = {
-        username: username,
-        password: password,
-    }
-
-    $.ajax({
-        url: apiURL + "/userProfile", // heroku url
-        type: "GET",
-        data: user,
-        success: function(response) {
-            var html = "<p>Login attempt successful</p>";
-            var username = response.user.username
-            var html2 = "<p>Logged in as " + username + "</p>";
-            $('.random').append(html);
-            $('.random').append(html2);
-            $('.new-user-form').hide();
-            $('.login-form').hide();
-            $('.logout-button').show();
-        }
-
-    })
-})
-
 //this will show who is logged in on page load
 
 $(document).ready(function(response) {
@@ -330,12 +298,14 @@ $(document).ready(function(response) {
         url: apiURL + "/userProfile",
         type: "GET",
         success: function(response) {
+          console.log('response lookat me', response);
             var username = response.user.username
             var savedScore = response.user.currentScore
             var html = "<p>Logged in as " + username + "</p>";
             $('.append-logout').append(html);
             $('.logout-button').show();
-            document.getElementById("myLink").innerHTML = savedScore;
+            $('#saved-score-value').html(savedScore)
+            // document.getElementById("myLink").innerHTML = savedScore;
         }
     })
 })
@@ -358,7 +328,8 @@ $('.save-score-button').on('submit', function(event) {
         success: function(response) {
             var savedScore = response.currentScore
             var highScore = response.score
-            document.getElementById("myLink").innerHTML = savedScore;
+            document.location.reload();
+
             if (savedScore > highScore) {
                 $.ajax({
                     url: apiURL + "/users/" + score,

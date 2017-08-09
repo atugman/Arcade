@@ -18,7 +18,6 @@ mongoose.Promise = global.Promise;
 
 const {PORT, DATABASE_URL} = require('./config');
 
-
 app.use(bodyParser.urlencoded({ extended: true, }));
 app.use(bodyParser.json());
 //app.use(jsonParser);
