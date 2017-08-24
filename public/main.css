@@ -21,8 +21,6 @@ table, th, td {
 td {
 	padding-top: 4px;
 	padding-bottom: 6px;
-	/*padding-left: 12px;
-	padding-right: 12px;*/
 	font-size: 16px;
 }
 
@@ -84,6 +82,22 @@ button {
 
 #myCanvas {
 	border: 5px solid white;
+}
+
+@media only screen and (max-width: 768px) {
+	#myCanvas {
+		width: 100%;
+	}
+
+	.high-scores-column {
+		width: 100%;
+	}
+
+	.scores-table {
+		width: 50%;
+		margin: 0 auto;
+		margin-top: 5%;
+	}
 }
 
 .instructions {
