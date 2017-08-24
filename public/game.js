@@ -1,5 +1,5 @@
-//const apiURL = "http://glacial-hollows-48767.herokuapp.com"
-const apiURL = "http://localhost:8080"
+const apiURL = "http://glacial-hollows-48767.herokuapp.com"
+//const apiURL = "http://localhost:8080"
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
@@ -19,17 +19,11 @@ var dby = -10;
 var dbbx = 5;
 var dbby = -5;
 
-//var aquaX = 10; //aqua
-//var aquaY = -10; //aqua
-
 var xb = canvas.width / 3;
 var yb = canvas.height - 30;
 
 var xz = canvas.width / 1.5;
 var yz = canvas.height - 30;
-
-//var xa = canvas.width/1.3; //aqua
-//var ya = canvas.height-30; //aqua
 
 var paddleHeight = 10;
 var paddleWidth = 25;
@@ -161,9 +155,6 @@ function gameOver() {
 
     alert("GAME OVER! Your score was " + score);
     document.location.reload();
-    //swal("GAME OVER!", "Your score was " + score, "success")
-
-
 }
 
 function draw() {
@@ -171,7 +162,6 @@ function draw() {
     drawBall(ballRadius, 'red', x, y);
     drawBall(ballRadius, 'blue', xb, yb);
     drawBall(ballRadius, 'green', xz, yz);
-    //drawBall(ballRadius, 'aqua', xa, yz);
     drawPaddle();
     drawBrick();
     drawScore();
@@ -187,9 +177,6 @@ function draw() {
         //checking if the ball hits the paddle
         if (x > paddleX && x < paddleX + paddleWidth) {
             gameOver();
-            //swal("Good job!", "You clicked the button!", "success")
-            //document.location.reload();
-
         } else {
             dy = -dy;
         }
@@ -224,25 +211,6 @@ function draw() {
             dbby = -dbby;
         }
     }
-
-    /*******************************
-                BOUNCING AQUA BALL (COMING SOON)
-                ********************************
-if(ya +aquaY < ballRadius)
-{
-  aquaY= -aquaY;
-}
-else if(ya + aquaY > (canvas.height-ballRadius)) {
-    //checking if the aqua ball hits the paddle
-     if(xa > paddleX && xa < paddleX + paddleWidth ) {
-        gameover();
-       }
-       else
-       {
-       aquaY = -aquaY;
-       }
-}
-*/
 
     /**************
     PADDLE MOVEMENT
@@ -293,7 +261,6 @@ $(document).ready(function() {
 //this will show who is logged in on page load
 
 $(document).ready(function(response) {
-//get back req.user
     $.ajax({
         url: apiURL + "/userProfile",
         type: "GET",
@@ -305,7 +272,6 @@ $(document).ready(function(response) {
             $('.append-logout').append(html);
             $('.logout-button').show();
             $('#saved-score-value').html(savedScore)
-            // document.getElementById("myLink").innerHTML = savedScore;
         }
     })
 })
@@ -354,7 +320,6 @@ $('.save-score-button').on('submit', function(event) {
 });
 
 // this will allow a user to resume a session with the score they saved it at
-// add alert - warn them that they will lose current progress.
 
 $('.load-score-button').on('submit', function(event) {
     event.preventDefault();
