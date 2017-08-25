@@ -163,7 +163,7 @@ app.post('/users', (req, res) => {
     return res.json({message: 'Missing field: username'});
   }
 
-  let {username, password, firstName, lastName} = req.body;
+  let {username, password, confirmPassword, firstName, lastName} = req.body;
 
   if (typeof username !== 'string') {
     return res.json({message: 'Incorrect field type: username'});
@@ -177,6 +177,10 @@ app.post('/users', (req, res) => {
 
   if (!(password)) {
     return res.json({message: 'Missing field: password'});
+  }
+
+  if (confirmPassword !== password) {
+    return res.json({message: 'Passwords do not match'})
   }
 
   if (typeof password !== 'string') {

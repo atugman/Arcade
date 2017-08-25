@@ -8,10 +8,12 @@ $('.new-user-form').on('submit', function(event) {
     var score = 0;
     var firstName = event.target.firstname.value
     var lastName = event.target.lastname.value
+    var confirmPassword = event.target.confirmPassword.value
 
     var user = {
         username: username,
         password: password,
+        confirmPassword: confirmPassword,
         score: score,
         firstName: firstName,
         lastName: lastName,
