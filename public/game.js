@@ -165,7 +165,8 @@ function gameOver() {
     // location.reload()
     $('.game-over').html("GAME OVER! Your score was " + score);
     // setTimeout($('.game-over').hide(),3000)
-    setTimeout(function(){window.location.href = '/game.html'}, 2500);
+    clearInterval(intervalID)
+    setTimeout(function(){window.location.reload()}, 2500);
 
     // alert("GAME OVER! Your score was " + score);
     // return false;
@@ -242,7 +243,7 @@ function draw() {
     yz += dbby;
     //ya +=aquaY;
 }
-setInterval(draw, 10);
+var intervalID = setInterval(draw, 10);
 
 var currentUserScore = 0
 
