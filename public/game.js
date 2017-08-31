@@ -1,5 +1,5 @@
-//const apiURL = "http://glacial-hollows-48767.herokuapp.com"
-const apiURL = "http://localhost:8080"
+const apiURL = "http://glacial-hollows-48767.herokuapp.com"
+//const apiURL = "http://localhost:8080"
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
@@ -142,8 +142,7 @@ function gameOver() {
                           type: "PATCH",
                           data: data,
                           success: function(response) {
-                            // alert("GAME OVER! Your score was " + score);
-                            // return false;
+
                           }
                       })
                   }
@@ -151,26 +150,9 @@ function gameOver() {
           })
         }
     });
-    // drawPaddle()
-    // var paddleX = (canvas.width - paddleWidth);
-    // draw()
-
-    //jquery to show text on the page
-    //show a certain class
-    //.html method $.textdiv html
-    //$('.text').html('<h1>Gameover</h1>');
-    //execute reload on setTimeout
-
-    // document.location.reload();
-    // location.reload()
     $('.game-over').html("GAME OVER! Your score was " + score);
-    // setTimeout($('.game-over').hide(),3000)
     clearInterval(intervalID)
     setTimeout(function(){window.location.reload()}, 2500);
-
-    // alert("GAME OVER! Your score was " + score);
-    // return false;
-    // document.location.reload();
 }
 
 function draw() {
