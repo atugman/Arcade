@@ -1,5 +1,5 @@
-const apiURL = "http://glacial-hollows-48767.herokuapp.com"
-//const apiURL = "http://localhost:8080"
+//const apiURL = "http://glacial-hollows-48767.herokuapp.com"
+const apiURL = "http://localhost:8080"
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
@@ -130,31 +130,46 @@ function gameOver() {
         type: "PATCH",
         data: data,
         success: function(response) {
-
+          $.ajax({
+              url: apiURL + "/checkScore",
+              type: "GET",
+              data: data,
+              success: function(data) {
+                  var currentHighScore = data.user.score;
+                  if (currentHighScore < score) {
+                      $.ajax({
+                          url: apiURL + "/users/" + score,
+                          type: "PATCH",
+                          data: data,
+                          success: function(response) {
+                            // alert("GAME OVER! Your score was " + score);
+                            // return false;
+                          }
+                      })
+                  }
+              }
+          })
         }
     });
+    // drawPaddle()
+    // var paddleX = (canvas.width - paddleWidth);
+    // draw()
 
-    $.ajax({
-        url: apiURL + "/checkScore",
-        type: "GET",
-        data: data,
-        success: function(data) {
-            var currentHighScore = data.user.score;
-            if (currentHighScore < score) {
-                $.ajax({
-                    url: apiURL + "/users/" + score,
-                    type: "PATCH",
-                    data: data,
-                    success: function(response) {
+    //jquery to show text on the page
+    //show a certain class
+    //.html method $.textdiv html
+    //$('.text').html('<h1>Gameover</h1>');
+    //execute reload on setTimeout
 
-                    }
-                })
-            }
-        }
-    })
+    // document.location.reload();
+    // location.reload()
+    $('.game-over').html("GAME OVER! Your score was " + score);
+    // setTimeout($('.game-over').hide(),3000)
+    setTimeout(function(){window.location.href = '/game.html'}, 2500);
 
-    alert("GAME OVER! Your score was " + score);
-    document.location.reload();
+    // alert("GAME OVER! Your score was " + score);
+    // return false;
+    // document.location.reload();
 }
 
 function draw() {
@@ -168,7 +183,7 @@ function draw() {
     collisionDetection();
 
     /******************
-    BOUNCING GREEN BALL
+    BOUNCING BLUE BALL
     ******************/
 
     if (y + dy < ballRadius) {
@@ -183,7 +198,7 @@ function draw() {
     }
 
     /*****************
-    BOUNCING BLUE BALL
+    BOUNCING RED BALL
     *****************/
 
     if (yb + dby < ballRadius) {
@@ -198,7 +213,7 @@ function draw() {
     }
 
     /*******************
-    BOUNCING YELLOW BALL
+    BOUNCING GREEN BALL
     *******************/
 
     if (yz + dbby < ballRadius) {
@@ -234,16 +249,34 @@ var currentUserScore = 0
 // AJAX
 // get and display high scores
 
-$(document).ready(function() {
+$(document).ready(function(response) {
+  $('.logout-button').show();
+
     var data = {
         name: name,
         score: score
     }
+
+    $.ajax({
+        url: apiURL + "/userProfile",
+        type: "GET",
+        success: function(response) {
+          console.log('userProfile ', response);
+            var username = response.user.username
+            var savedScore = response.user.currentScore
+            var html = "<p>Logged in as " + username + "</p>";
+            $('.append-logout').append(html);
+            $('.logout-button').show();
+            $('#saved-score-value').html(savedScore)
+        }
+    })
+
     $.ajax({
         url: apiURL + "/scores",
         type: "GET",
         data: data,
         success: function(data) {
+          console.log('scores', data);
             for (var i = 0; i < data.length; i++) {
                 if (data[i].score !== undefined) {
                     var html = "<tr><td class='table-data-score'>" + data[i].score + " </td><td class='table-data-name'>" + data[i].username + '</td></tr>';
@@ -253,29 +286,6 @@ $(document).ready(function() {
         }
     })
 });
-
-$(document).ready(function() {
-    $('.logout-button').show();
-})
-
-//this will show who is logged in on page load
-
-$(document).ready(function(response) {
-    $.ajax({
-        url: apiURL + "/userProfile",
-        type: "GET",
-        success: function(response) {
-          console.log('response lookat me', response);
-            var username = response.user.username
-            var savedScore = response.user.currentScore
-            var html = "<p>Logged in as " + username + "</p>";
-            $('.append-logout').append(html);
-            $('.logout-button').show();
-            $('#saved-score-value').html(savedScore)
-        }
-    })
-})
-
 
 //can save score without losing progress, or it will save on gameOver
 
