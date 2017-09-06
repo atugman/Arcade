@@ -31,9 +31,12 @@ $('.new-user-form').on('submit', function(event) {
             event.target.Password.value = '';
             event.target.firstname.value = '';
             event.target.lastname.value = '';
+            event.target.confirmPassword.value = '';
           } else {
             var html = response.message
             sweetAlert("Oops...", html, "error");
+            event.target.Password.value = '';
+            event.target.confirmPassword.value = '';
         }
         }
       })

@@ -104,3 +104,7 @@ button {
 	font-family: helvetica;
 	font-size: 18px;
 }
+
+.game-over {
+	font-size: 24px;
+}
