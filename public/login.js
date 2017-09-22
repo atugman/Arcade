@@ -7,7 +7,6 @@ $('.new-user-form').on('submit', function(event) {
     var password = event.target.Password.value
     var score = 0;
     var firstName = event.target.firstname.value
-    var lastName = event.target.lastname.value
     var confirmPassword = event.target.confirmPassword.value
 
     var user = {
@@ -16,7 +15,6 @@ $('.new-user-form').on('submit', function(event) {
         confirmPassword: confirmPassword,
         score: score,
         firstName: firstName,
-        lastName: lastName,
         currentScore: score
     }
     //ajax call for adding new users, POST
@@ -30,7 +28,6 @@ $('.new-user-form').on('submit', function(event) {
             event.target.Username.value = '';
             event.target.Password.value = '';
             event.target.firstname.value = '';
-            event.target.lastname.value = '';
             event.target.confirmPassword.value = '';
           } else {
             var html = response.message

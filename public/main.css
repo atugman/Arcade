@@ -108,3 +108,9 @@ button {
 .game-over {
 	font-size: 24px;
 }
+
+.toggle-load-button {
+	background-color: grey;
+	font-style: italic;
+	cursor: not-allowed;
+}

@@ -211,7 +211,6 @@ app.post('/users', (req, res) => {
           username: username,
           password: hash,
           firstName: firstName,
-          lastName: lastName,
           score: 0
         })
     })

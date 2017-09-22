@@ -230,7 +230,6 @@ var intervalID = setInterval(draw, 10);
 var currentUserScore = 0
 
 // AJAX
-// get and display high scores
 
 $(document).ready(function(response) {
   $('.logout-button').show();
@@ -244,13 +243,15 @@ $(document).ready(function(response) {
         url: apiURL + "/userProfile",
         type: "GET",
         success: function(response) {
-          console.log('userProfile ', response);
             var username = response.user.username
             var savedScore = response.user.currentScore
             var html = "<p>Logged in as " + username + "</p>";
             $('.append-logout').append(html);
             $('.logout-button').show();
             $('#saved-score-value').html(savedScore)
+            if (savedScore === 0 || undefined) {
+              $('button').last().addClass("toggle-load-button")
+            }
         }
     })
 
@@ -259,7 +260,6 @@ $(document).ready(function(response) {
         type: "GET",
         data: data,
         success: function(data) {
-          console.log('scores', data);
             for (var i = 0; i < data.length; i++) {
                 if (data[i].score !== undefined) {
                     var html = "<tr><td class='table-data-score'>" + data[i].score + " </td><td class='table-data-name'>" + data[i].username + '</td></tr>';
@@ -275,6 +275,11 @@ $(document).ready(function(response) {
 $('.save-score-button').on('submit', function(event) {
     event.preventDefault();
 
+    if (score !== 0 || undefined) {
+      console.log('hello');
+      $('button').last().removeClass("toggle-load-button")
+    }
+
     var data = {
         name: name,
         score: score
@@ -287,7 +292,7 @@ $('.save-score-button').on('submit', function(event) {
         success: function(response) {
             var savedScore = response.currentScore
             var highScore = response.score
-            document.location.reload();
+            // document.location.reload();
 
             if (savedScore > highScore) {
                 $.ajax({
@@ -304,12 +309,16 @@ $('.save-score-button').on('submit', function(event) {
                     success: function(response) {
                         var savedScore = response.currentScore
                         var highScore = response.score
+                        // swal('You score was saved. Click "Load" at any time to reload your score.', 'Your saved score will become 0 upon losing the game.', "success")
                     }
                 });
             };
-            document.location.reload();
+            // document.location.reload();
         }
     });
+    clearInterval(intervalID)
+    setTimeout(function(){window.location.reload()}, 2500);
+    swal('You score was saved.', 'Click "Load" to reload your score and resume.', "success")
 });
 
 // this will allow a user to resume a session with the score they saved it at
@@ -326,11 +335,15 @@ $('.load-score-button').on('submit', function(event) {
         type: "GET",
         data: data,
         success: function(response) {
+          if (response.currentScore !== 0 || undefined) {
             score = response.currentScore
             drawScore();
+            swal("Score loaded!", "Continue playing!", "success")
+          }
         }
     })
 })
+
 
 //logout
 
