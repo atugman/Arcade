@@ -1,5 +1,5 @@
-const apiURL = "http://glacial-hollows-48767.herokuapp.com"
-//const apiURL = "http://localhost:8080"
+//const apiURL = "http://glacial-hollows-48767.herokuapp.com"
+const apiURL = "http://localhost:8080"
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
@@ -223,7 +223,6 @@ function draw() {
     y += dy;
     yb += dby;
     yz += dbby;
-    //ya +=aquaY;
 }
 var intervalID = setInterval(draw, 10);
 
@@ -276,7 +275,6 @@ $('.save-score-button').on('submit', function(event) {
     event.preventDefault();
 
     if (score !== 0 || undefined) {
-      console.log('hello');
       $('button').last().removeClass("toggle-load-button")
     }
 

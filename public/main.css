@@ -74,6 +74,7 @@ button {
 
 .saved-score-box-form {
 	font-size: 32px;
+	margin-top: -10%;
 }
 
 #myLink {
@@ -113,4 +114,58 @@ button {
 	background-color: grey;
 	font-style: italic;
 	cursor: not-allowed;
+}
+
+.logout-button {
+	cursor: pointer;
+	font-size: inherit;
+}
+
+@media only screen and (max-width: 800px) {
+	/*.navbar-header {
+		width: 45%;
+	}
+
+	.page-scroll {
+		width: 50%;
+	}
+
+	.append-logout {
+		float: right;
+	}
+
+	.logout-button {
+		float: right;
+	}*/
+	.page-scroll {
+		font-size: 2px;
+	}
+	.append-logout {
+		font-size: 2px;
+	}
+}
+
+@media only screen and (max-width: 414px) {
+	.hidden {
+		visibility: visible;
+	}
+}
+
+.about-section {
+	color: #2C3E50;
+	font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+	border: 1px solid #2C3E50;
+	border-radius: 30px;
+	padding: 1%;
+	text-align: center;
+}
+
+.start-game {
+	background-color: #18BC9C;
+	padding-left: 10%;
+	padding-right: 10%;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	display: block;
+	margin: 0 auto;
 }
