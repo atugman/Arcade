@@ -4,6 +4,6 @@ deploy:
   provider: heroku
   api_key:
     secure: TV9uaxu+qaTdY7XX0GwFFbmOevS4E3jSfDXXbr+RmorO3iDvuyjyLaFe0IvdoaMLxZpi7p4RX6n3uKnHKH/1N+4+bxKLwJtBo7PgCNm8OGd+oRcqEmcTk5pkBW9HQ0tcfljAXXVp2SpBRVSN1XLFlbrx34xe/lid0P9UZPtHoA2AZL77Ak/lC2hmmAAnYs0GSojNnoSf4T92P5Qpdq760fg3sa3wTtMdfEYVb3eR6tltPcM2pGHfmfe/BIVb7b89JKLCK6YVkjTE8z0+JRnB9IOvvM/9r2Nw3xIMNM7YuMUCpHYydnF7ex0mzvKXhv5gW7jkMtanmTTeGj8uNpPr0G+HV+7a+JLti29mQKn2bDZSinlr5HduqacEnKDJ9xR+3P/OMU+s/Em0CoBD4LdgbG7vQ3HYZVgEZ9g7zYUeY/OWxyPiey4bfCOSaR6BWColVXjfIql+o1MgSiZmgHnUCTmulbz/VwqK2hpNzv96lZoVPjTS+2AndoUtKUpDb9WUiwDFObukqxtsBJzZYwVcsNQZLzVdbLRzxkt7ifKh2DLNjUjbwNysWQzorLvJSG2ZFwmj3XmaHxOMp2XpBc6P8kBX/Z+9KNhkKcbBROhz79LEHxlLSZEpiZ5RJV4NYZzaStvzGMXNkWwG1hFNIxi5PhrN5QmdhtLw4JIlK6YxUdA=
-  app: Arcade
+  app: glacial-hollows-48767
   on:
     repo: atugman/Arcade
