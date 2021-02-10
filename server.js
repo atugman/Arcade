@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const serveStatic = require('serve-static');
 const cookieParser = require('cookie-parser');
 const {BasicStrategy} = require('passport-http');
-const appInsights = require('applicationinsights');
+//const appInsights = require('applicationinsights');
 appInsights.setup('e5989c82-d45b-4630-8c79-bac0d6665712').start();
 
 //const jsonParser = require('body-parser').json();
